@@ -1,6 +1,8 @@
 "use client";
 
-import { LogOut, Building2 } from "lucide-react";
+import { useTransition } from "react";
+import { LogOut, Building2, Loader2 } from "lucide-react";
+import { logoutAction } from "@/actions/auth";
 
 interface HeaderProps {
   companyName?: string;
@@ -10,16 +12,19 @@ interface HeaderProps {
 
 export function Header({
   companyName = "CUBE Technologies",
-  userName = "Alex Pratama",
+  userName = "Pegawai",
   onLogout,
 }: HeaderProps) {
+  const [isPending, startTransition] = useTransition();
+
   const handleLogout = () => {
     if (onLogout) {
       onLogout();
-    } else {
-      // Default handler: clear session or redirect to auth
-      console.log("Logout triggered");
+      return;
     }
+    startTransition(async () => {
+      await logoutAction();
+    });
   };
 
   return (
@@ -42,13 +47,17 @@ export function Header({
         <button
           type="button"
           onClick={handleLogout}
+          disabled={isPending}
           aria-label="Logout"
-          className="h-9 w-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-100 transition-colors"
+          className="h-9 w-9 rounded-lg border border-slate-200 flex items-center justify-center text-slate-500 hover:text-rose-600 hover:bg-rose-50 hover:border-rose-100 disabled:opacity-50 transition-colors"
         >
-          <LogOut className="h-4 w-4" />
+          {isPending ? (
+            <Loader2 className="h-4 w-4 animate-spin text-slate-600" />
+          ) : (
+            <LogOut className="h-4 w-4" />
+          )}
         </button>
       </div>
     </header>
   );
 }
-
