@@ -1,0 +1,18 @@
+{
+  "name": "Employee Monitoring & Attendance",
+  "short_name": "EmpMonitor",
+  "description": "Aplikasi Absensi & Pelaporan Tugas Harian Pegawai",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}
+
