@@ -279,7 +279,12 @@ export async function getAttendanceHistory(): Promise<AttendanceHistoryResult> {
 
   const { data: rows, error } = await supabase
     .from("attendances")
-    .select("*")
+    .select(
+      `
+      *,
+      daily_tasks (*)
+    `
+    )
     .eq("user_id", user.id)
     .order("date", { ascending: false });
 

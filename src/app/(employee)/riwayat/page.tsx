@@ -10,6 +10,12 @@ import {
   History,
   Timer,
   Building,
+  ChevronDown,
+  ChevronUp,
+  ListTodo,
+  CheckSquare,
+  PlayCircle,
+  AlertCircle,
 } from "lucide-react";
 import { getAttendanceHistory } from "@/actions/attendance";
 import type { Attendance } from "@/types/database";
@@ -25,6 +31,16 @@ export default function RiwayatPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
   const [filterMode, setFilterMode] = useState<"all" | "this_month">("all");
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+
+  const toggleExpand = (id: string) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   const loadHistory = useCallback(async (isManualRefresh = false) => {
     if (isManualRefresh) setIsRefreshing(true);
@@ -49,7 +65,6 @@ export default function RiwayatPage() {
   // Format Date in Indonesian locale
   const formatDateIndo = (dateStr: string) => {
     try {
-      // dateStr is 'YYYY-MM-DD'
       const [year, month, day] = dateStr.split("-").map(Number);
       const date = new Date(year, month - 1, day);
       return date.toLocaleDateString("id-ID", {
@@ -106,7 +121,7 @@ export default function RiwayatPage() {
             Riwayat Presensi
           </h1>
           <p className="text-xs text-slate-500">
-            Rekap catatan kehadiran personal Anda
+            Rekap kehadiran & laporan aktivitas harian
           </p>
         </div>
         <button
@@ -216,11 +231,17 @@ export default function RiwayatPage() {
           {filteredHistory.map((item) => {
             const isCompleted = !!item.clock_out;
             const isOnTime = item.status === "ONTIME";
+            const tasks = item.daily_tasks || [];
+            const taskCount = tasks.length;
+            const completedTasks = tasks.filter(
+              (t) => t.status === "COMPLETED"
+            ).length;
+            const isExpanded = expandedIds.has(item.id);
 
             return (
               <div
                 key={item.id}
-                className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs flex flex-col gap-2.5 transition-shadow hover:shadow-sm"
+                className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs flex flex-col gap-3 transition-shadow hover:shadow-sm"
               >
                 {/* Date & Badges Header */}
                 <div className="flex items-center justify-between">
@@ -298,6 +319,96 @@ export default function RiwayatPage() {
                     {item.notes}
                   </div>
                 )}
+
+                {/* Cara B: Expandable Daily Tasks Section */}
+                <div className="border-t border-slate-100 pt-2.5">
+                  <button
+                    type="button"
+                    onClick={() => toggleExpand(item.id)}
+                    className="w-full flex items-center justify-between text-xs py-1 text-slate-600 hover:text-slate-900 transition"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <ListTodo className="h-3.5 w-3.5 text-blue-600" />
+                      <span className="font-semibold text-[11px]">
+                        Laporan Tugas ({taskCount})
+                      </span>
+                      {taskCount > 0 && (
+                        <span className="text-[10px] text-emerald-600 font-medium">
+                          &bull; {completedTasks}/{taskCount} Selesai
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="flex items-center gap-1 text-[11px] text-slate-400">
+                      <span>{isExpanded ? "Tutup" : "Lihat"}</span>
+                      {isExpanded ? (
+                        <ChevronUp className="h-3.5 w-3.5" />
+                      ) : (
+                        <ChevronDown className="h-3.5 w-3.5" />
+                      )}
+                    </div>
+                  </button>
+
+                  {/* Accordion Content */}
+                  {isExpanded && (
+                    <div className="mt-2.5 flex flex-col gap-1.5 bg-slate-50/80 rounded-xl p-2.5 border border-slate-100">
+                      {taskCount === 0 ? (
+                        <p className="text-[11px] text-slate-400 text-center py-1">
+                          Tidak ada catatan aktivitas di hari ini.
+                        </p>
+                      ) : (
+                        tasks.map((task) => {
+                          const isTaskDone = task.status === "COMPLETED";
+                          const isTaskBlocked = task.status === "BLOCKED";
+
+                          return (
+                            <div
+                              key={task.id}
+                              className="flex items-start justify-between gap-2 p-1.5 rounded-lg bg-white border border-slate-100"
+                            >
+                              <div className="flex items-start gap-2 flex-1 min-w-0">
+                                <span className="mt-0.5 shrink-0">
+                                  {isTaskDone ? (
+                                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                                  ) : isTaskBlocked ? (
+                                    <AlertCircle className="h-3.5 w-3.5 text-rose-500" />
+                                  ) : (
+                                    <PlayCircle className="h-3.5 w-3.5 text-blue-500" />
+                                  )}
+                                </span>
+                                <span
+                                  className={`text-[11px] leading-tight break-words ${
+                                    isTaskDone
+                                      ? "line-through text-slate-400"
+                                      : "text-slate-700 font-medium"
+                                  }`}
+                                >
+                                  {task.task_description}
+                                </span>
+                              </div>
+
+                              <span
+                                className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0 ${
+                                  isTaskDone
+                                    ? "bg-emerald-50 text-emerald-700"
+                                    : isTaskBlocked
+                                    ? "bg-rose-50 text-rose-700"
+                                    : "bg-blue-50 text-blue-700"
+                                }`}
+                              >
+                                {isTaskDone
+                                  ? "Selesai"
+                                  : isTaskBlocked
+                                  ? "Terkendala"
+                                  : "Proses"}
+                              </span>
+                            </div>
+                          );
+                        })
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

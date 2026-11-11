@@ -38,6 +38,7 @@ export interface Attendance {
   is_out_of_area: boolean;
   status: AttendanceStatus;
   notes: string | null;
+  daily_tasks?: DailyTask[];
 }
 
 export interface DailyTask {
