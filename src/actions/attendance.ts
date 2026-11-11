@@ -245,3 +245,87 @@ export async function clockOutAction(payload: {
   revalidatePath("/", "layout");
   return { success: true, attendance: updatedAttendance as Attendance };
 }
+
+export interface AttendanceHistoryResult {
+  history: Attendance[];
+  stats: {
+    totalDays: number;
+    onTimeCount: number;
+    lateCount: number;
+    totalHoursMinutes: string;
+  };
+}
+
+/**
+ * Action: Fetch personal attendance history and summary stats
+ */
+export async function getAttendanceHistory(): Promise<AttendanceHistoryResult> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return {
+      history: [],
+      stats: {
+        totalDays: 0,
+        onTimeCount: 0,
+        lateCount: 0,
+        totalHoursMinutes: "0 jam",
+      },
+    };
+  }
+
+  const { data: rows, error } = await supabase
+    .from("attendances")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("date", { ascending: false });
+
+  if (error) {
+    console.error("Gagal mengambil riwayat absensi:", error);
+    return {
+      history: [],
+      stats: {
+        totalDays: 0,
+        onTimeCount: 0,
+        lateCount: 0,
+        totalHoursMinutes: "0 jam",
+      },
+    };
+  }
+
+  const history = (rows as Attendance[]) || [];
+
+  let totalMinutes = 0;
+  let onTimeCount = 0;
+  let lateCount = 0;
+
+  history.forEach((item) => {
+    if (item.status === "ONTIME") onTimeCount++;
+    if (item.status === "LATE") lateCount++;
+    if (item.clock_in && item.clock_out) {
+      const diffMs =
+        new Date(item.clock_out).getTime() - new Date(item.clock_in).getTime();
+      if (diffMs > 0) {
+        totalMinutes += Math.floor(diffMs / (1000 * 60));
+      }
+    }
+  });
+
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  const totalHoursMinutes = `${hours}j ${minutes}m`;
+
+  return {
+    history,
+    stats: {
+      totalDays: history.length,
+      onTimeCount,
+      lateCount,
+      totalHoursMinutes,
+    },
+  };
+}
+
