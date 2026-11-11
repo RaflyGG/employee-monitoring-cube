@@ -2,9 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Employee Attendance & Monitoring",
-  description: "Aplikasi Presensi Pegawai Mobile-First",
+  title: "CUBE - Employee Monitoring & Attendance",
+  description: "Aplikasi Presensi & Pelaporan Tugas Pegawai Mobile-First",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/cube-icon.png",
+    apple: "/cube-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
@@ -21,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-slate-100 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+      <body className="min-h-full flex flex-col bg-[#F6F8F1] text-[#060057] font-sans selection:bg-[#D74D0D]/15 selection:text-[#060057]">
         {children}
       </body>
     </html>

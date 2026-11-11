@@ -12,9 +12,6 @@ import {
   Clock,
   ArrowRight,
   ListTodo,
-  AlertTriangle,
-  PlayCircle,
-  CheckCircle2,
 } from "lucide-react";
 import {
   getTodayTasks,
@@ -94,7 +91,6 @@ export default function AktivitasPage() {
     const nextStatus: TaskStatus =
       task.status === "COMPLETED" ? "IN_PROGRESS" : "COMPLETED";
 
-    // Optimistic update
     setTasks((prev) =>
       prev.map((t) => (t.id === task.id ? { ...t, status: nextStatus } : t))
     );
@@ -102,12 +98,11 @@ export default function AktivitasPage() {
     const result = await updateTaskStatusAction(task.id, nextStatus);
     if (result.error) {
       setActionError(result.error);
-      // Revert if failed
       loadTasks();
     }
   };
 
-  // Change status to specific (e.g. BLOCKED)
+  // Change status to specific
   const handleChangeStatus = async (taskId: string, newStatus: TaskStatus) => {
     setTasks((prev) =>
       prev.map((t) => (t.id === taskId ? { ...t, status: newStatus } : t))
@@ -141,10 +136,10 @@ export default function AktivitasPage() {
       {/* Header & Refresh */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-base font-bold text-slate-900 tracking-tight">
+          <h1 className="text-base font-extrabold text-[#060057] tracking-tight">
             Aktivitas Hari Ini
           </h1>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-[#060057]/60">
             Catat dan laporkan progres tugas harian Anda
           </p>
         </div>
@@ -153,40 +148,42 @@ export default function AktivitasPage() {
           onClick={() => loadTasks(true)}
           disabled={isRefreshing || isLoading}
           aria-label="Refresh Data"
-          className="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 disabled:opacity-50 transition-colors"
+          className="p-2 rounded-xl bg-white border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"
         >
           <RefreshCw
-            className={`h-4 w-4 ${isRefreshing ? "animate-spin text-blue-600" : ""}`}
+            className={`h-4 w-4 ${
+              isRefreshing ? "animate-spin text-[#D74D0D]" : ""
+            }`}
           />
         </button>
       </div>
 
       {/* Action Error Banner */}
       {actionError && (
-        <div className="p-3 rounded-xl bg-rose-50 border border-rose-200/80 flex items-start gap-2.5 text-rose-800 text-xs">
-          <AlertCircle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
+        <div className="p-3 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 flex items-start gap-2.5 text-[#C92121] text-xs font-medium">
+          <AlertCircle className="h-4 w-4 text-[#C92121] shrink-0 mt-0.5" />
           <span className="leading-tight">{actionError}</span>
         </div>
       )}
 
       {/* State: User has NOT clocked in today */}
       {!isLoading && !hasClockedInToday && (
-        <div className="bg-white border border-slate-200/80 rounded-2xl p-6 text-center shadow-xs flex flex-col items-center gap-3">
-          <div className="h-12 w-12 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-center justify-center text-amber-600">
+        <div className="bg-white border border-[#060057]/10 rounded-2xl p-6 text-center shadow-xs flex flex-col items-center gap-3">
+          <div className="h-12 w-12 rounded-2xl bg-[#E9B501]/20 border border-[#E9B501]/40 flex items-center justify-center text-[#D74D0D]">
             <Clock className="h-6 w-6" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-slate-800">
+            <h2 className="text-sm font-bold text-[#060057]">
               Belum Clock-In Hari Ini
             </h2>
-            <p className="text-xs text-slate-500 mt-1 max-w-[260px]">
+            <p className="text-xs text-[#060057]/60 mt-1 max-w-[260px]">
               Lakukan Clock-In terlebih dahulu di tab Absen agar tugas harian
               dapat tercatat ke sesi kehadiran Anda.
             </p>
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white text-xs font-semibold rounded-xl transition shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#D74D0D] hover:bg-[#b83e08] active:scale-[0.99] text-white text-xs font-bold rounded-xl transition shadow-xs"
           >
             <span>Ke Halaman Absen</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -199,37 +196,37 @@ export default function AktivitasPage() {
         <>
           {/* Mini Task Stats Counter */}
           <div className="grid grid-cols-3 gap-2">
-            <div className="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-blue-500 shrink-0" />
+            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#E9B501] shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 font-medium">
+                <span className="text-[10px] text-[#060057]/55 font-medium">
                   Dalam Proses
                 </span>
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-extrabold text-[#060057]">
                   {inProgressCount} Tugas
                 </span>
               </div>
             </div>
 
-            <div className="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 font-medium">
+                <span className="text-[10px] text-[#060057]/55 font-medium">
                   Selesai
                 </span>
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-extrabold text-[#060057]">
                   {completedCount} Tugas
                 </span>
               </div>
             </div>
 
-            <div className="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-rose-500 shrink-0" />
+            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#C92121] shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-slate-400 font-medium">
+                <span className="text-[10px] text-[#060057]/55 font-medium">
                   Terkendala
                 </span>
-                <span className="text-xs font-bold text-slate-800">
+                <span className="text-xs font-extrabold text-[#060057]">
                   {blockedCount} Tugas
                 </span>
               </div>
@@ -237,11 +234,11 @@ export default function AktivitasPage() {
           </div>
 
           {/* New Task Input Card */}
-          <section className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-xs">
+          <section className="bg-white border border-[#060057]/10 rounded-2xl p-4 shadow-xs">
             <form onSubmit={handleCreateTask} className="flex flex-col gap-3">
               <label
                 htmlFor="new-task-desc"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 Tambah Pekerjaan / Tugas Baru
               </label>
@@ -253,12 +250,12 @@ export default function AktivitasPage() {
                 onChange={(e) => setTaskInput(e.target.value)}
                 placeholder="Contoh: Selesaikan modul validasi geofence absensi..."
                 required
-                className="w-full text-sm p-3 border border-slate-200 rounded-xl bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 placeholder:text-slate-400 transition"
+                className="w-full text-sm p-3 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
               />
 
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5 text-xs">
-                  <span className="text-[11px] text-slate-400 font-medium">
+                  <span className="text-[11px] text-[#060057]/60 font-semibold">
                     Status:
                   </span>
                   <select
@@ -266,7 +263,7 @@ export default function AktivitasPage() {
                     onChange={(e) =>
                       setSelectedStatus(e.target.value as TaskStatus)
                     }
-                    className="text-xs py-1 px-2 border border-slate-200 rounded-lg bg-slate-50 text-slate-700 focus:outline-none"
+                    className="text-xs font-semibold py-1.5 px-2.5 border border-[#060057]/15 rounded-lg bg-[#F6F8F1] text-[#060057] focus:outline-none"
                   >
                     <option value="IN_PROGRESS">Dalam Proses</option>
                     <option value="COMPLETED">Selesai</option>
@@ -277,7 +274,7 @@ export default function AktivitasPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !taskInput.trim()}
-                  className="h-10 px-4 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-1.5 shadow-xs transition"
+                  className="h-10 px-4 bg-[#D74D0D] hover:bg-[#b83e08] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-xs shadow-[#D74D0D]/20 transition"
                 >
                   {isSubmitting ? (
                     <RefreshCw className="h-3.5 w-3.5 animate-spin" />
@@ -294,19 +291,19 @@ export default function AktivitasPage() {
 
           {/* Task List */}
           {isLoading ? (
-            <div className="bg-white border border-slate-200/80 rounded-2xl p-8 text-center shadow-xs">
-              <RefreshCw className="h-5 w-5 text-blue-600 animate-spin mx-auto mb-2" />
-              <p className="text-xs text-slate-500 font-medium">
+            <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs">
+              <RefreshCw className="h-5 w-5 text-[#D74D0D] animate-spin mx-auto mb-2" />
+              <p className="text-xs text-[#060057]/60 font-medium">
                 Memuat daftar tugas...
               </p>
             </div>
           ) : tasks.length === 0 ? (
-            <div className="bg-white border border-slate-200/80 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
-              <ListTodo className="h-8 w-8 text-slate-300 mb-2" />
-              <p className="text-sm font-semibold text-slate-700">
+            <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
+              <ListTodo className="h-8 w-8 text-[#060057]/25 mb-2" />
+              <p className="text-sm font-bold text-[#060057]">
                 Belum Ada Tugas
               </p>
-              <p className="text-xs text-slate-400 mt-1 max-w-[240px]">
+              <p className="text-xs text-[#060057]/50 mt-1 max-w-[240px]">
                 Mulai hari kerja Anda dengan menambahkan rencana tugas di atas.
               </p>
             </div>
@@ -321,10 +318,10 @@ export default function AktivitasPage() {
                     key={task.id}
                     className={`bg-white border rounded-2xl p-3.5 shadow-xs flex items-start justify-between gap-3 transition-all ${
                       isCompleted
-                        ? "border-emerald-200/70 bg-emerald-50/20"
+                        ? "border-emerald-200 bg-emerald-50/15"
                         : isBlocked
-                        ? "border-rose-200/70 bg-rose-50/20"
-                        : "border-slate-200/80"
+                        ? "border-[#C92121]/30 bg-[#C92121]/5"
+                        : "border-[#060057]/10"
                     }`}
                   >
                     {/* Left: Checkbox Toggle & Description */}
@@ -333,12 +330,12 @@ export default function AktivitasPage() {
                         type="button"
                         onClick={() => handleToggleStatus(task)}
                         aria-label="Toggle Selesai"
-                        className="mt-0.5 text-slate-400 hover:text-blue-600 transition shrink-0"
+                        className="mt-0.5 text-[#060057]/30 hover:text-[#D74D0D] transition shrink-0"
                       >
                         {isCompleted ? (
                           <CheckSquare className="h-5 w-5 text-emerald-600" />
                         ) : (
-                          <Square className="h-5 w-5 text-slate-300 hover:text-slate-400" />
+                          <Square className="h-5 w-5 text-[#060057]/25 hover:text-[#060057]/50" />
                         )}
                       </button>
 
@@ -346,8 +343,8 @@ export default function AktivitasPage() {
                         <span
                           className={`text-sm leading-snug break-words ${
                             isCompleted
-                              ? "line-through text-slate-400"
-                              : "text-slate-800 font-medium"
+                              ? "line-through text-[#060057]/40"
+                              : "text-[#060057] font-semibold"
                           }`}
                         >
                           {task.task_description}
@@ -360,10 +357,10 @@ export default function AktivitasPage() {
                             onClick={() =>
                               handleChangeStatus(task.id, "IN_PROGRESS")
                             }
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full transition ${
+                            className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "IN_PROGRESS"
-                                ? "bg-blue-100 text-blue-700 border border-blue-200"
-                                : "text-slate-400 hover:text-slate-600"
+                                ? "bg-[#E9B501]/25 text-[#7d6000] border border-[#E9B501]/50"
+                                : "text-[#060057]/40 hover:text-[#060057]"
                             }`}
                           >
                             Proses
@@ -374,10 +371,10 @@ export default function AktivitasPage() {
                             onClick={() =>
                               handleChangeStatus(task.id, "COMPLETED")
                             }
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full transition ${
+                            className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "COMPLETED"
-                                ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
-                                : "text-slate-400 hover:text-slate-600"
+                                ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                                : "text-[#060057]/40 hover:text-[#060057]"
                             }`}
                           >
                             Selesai
@@ -388,10 +385,10 @@ export default function AktivitasPage() {
                             onClick={() =>
                               handleChangeStatus(task.id, "BLOCKED")
                             }
-                            className={`text-[10px] font-semibold px-2 py-0.5 rounded-full transition ${
+                            className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "BLOCKED"
-                                ? "bg-rose-100 text-rose-700 border border-rose-200"
-                                : "text-slate-400 hover:text-slate-600"
+                                ? "bg-[#C92121]/15 text-[#C92121] border border-[#C92121]/30"
+                                : "text-[#060057]/40 hover:text-[#060057]"
                             }`}
                           >
                             Terkendala
@@ -405,7 +402,7 @@ export default function AktivitasPage() {
                       type="button"
                       onClick={() => handleDeleteTask(task.id)}
                       aria-label="Hapus Tugas"
-                      className="p-1 text-slate-300 hover:text-rose-600 transition shrink-0"
+                      className="p-1 text-[#060057]/25 hover:text-[#C92121] transition shrink-0"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

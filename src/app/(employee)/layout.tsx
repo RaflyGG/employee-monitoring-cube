@@ -16,9 +16,9 @@ export default async function EmployeeLayout({
     "Pegawai";
 
   return (
-    <div className="min-h-screen bg-slate-100/70 sm:py-0">
-      <div className="max-w-md mx-auto min-h-screen bg-slate-50 flex flex-col shadow-sm border-x border-slate-200/70 relative">
-        <Header userName={userName} />
+    <div className="min-h-screen bg-[#ECEFE5] sm:py-0">
+      <div className="max-w-md mx-auto min-h-screen bg-[#F6F8F1] flex flex-col shadow-xs border-x border-[#060057]/10 relative">
+        <Header userName={userName} companyName="CUBE" />
         <main className="flex-1 flex flex-col px-4 py-4 pb-24">
           {children}
         </main>

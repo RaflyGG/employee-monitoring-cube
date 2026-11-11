@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useActionState } from "react";
+import Image from "next/image";
 import { loginAction, registerAction, type AuthState } from "@/actions/auth";
-import { Building2, Eye, EyeOff, LogIn, UserPlus, AlertCircle } from "lucide-react";
+import { Eye, EyeOff, LogIn, UserPlus, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -23,30 +24,39 @@ export default function LoginPage() {
   const isPending = mode === "login" ? isLoginPending : isRegisterPending;
 
   return (
-    <div className="min-h-screen bg-slate-100/70 flex flex-col justify-center">
-      <div className="max-w-md w-full mx-auto min-h-screen sm:min-h-0 bg-slate-50 flex flex-col justify-center px-6 py-10 shadow-sm border-x border-slate-200/70">
-        {/* Brand Header */}
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className="h-14 w-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md mb-3.5">
-            <Building2 className="h-7 w-7" />
+    <div className="min-h-screen bg-[#ECEFE5] flex flex-col justify-center">
+      <div className="max-w-md w-full mx-auto min-h-screen sm:min-h-0 bg-white sm:rounded-3xl flex flex-col justify-center px-6 py-10 shadow-sm border border-[#060057]/10">
+        {/* CUBE Studio Brand Header */}
+        <div className="flex flex-col items-center text-center mb-7">
+          <div className="mb-3">
+            <Image
+              src="/cube-logo.png"
+              alt="Cube Studio Logo"
+              width={196}
+              height={138}
+              className="object-contain"
+              unoptimized
+              priority
+            />
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">
+
+          <span className="text-xs font-bold uppercase tracking-wider text-[#D74D0D] mt-0.5">
             Employee Monitoring
-          </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          </span>
+          <p className="text-xs text-[#060057]/60 mt-1">
             Presensi akurat, transparan & anti-kecurangan
           </p>
         </div>
 
         {/* Tab Switcher: Login vs Register */}
-        <div className="flex bg-slate-200/70 p-1 rounded-xl mb-6">
+        <div className="flex bg-[#F6F8F1] p-1 rounded-xl mb-6 border border-[#060057]/10">
           <button
             type="button"
             onClick={() => setMode("login")}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               mode === "login"
-                ? "bg-white text-slate-900 shadow-xs"
-                : "text-slate-500 hover:text-slate-700"
+                ? "bg-white text-[#060057] shadow-xs"
+                : "text-[#060057]/50 hover:text-[#060057]"
             }`}
           >
             Masuk (Login)
@@ -54,10 +64,10 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => setMode("register")}
-            className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               mode === "register"
-                ? "bg-white text-slate-900 shadow-xs"
-                : "text-slate-500 hover:text-slate-700"
+                ? "bg-white text-[#D74D0D] shadow-xs"
+                : "text-[#060057]/50 hover:text-[#060057]"
             }`}
           >
             Daftar Akun
@@ -66,8 +76,8 @@ export default function LoginPage() {
 
         {/* Error Alert */}
         {activeError && (
-          <div className="mb-5 p-3 rounded-xl bg-rose-50 border border-rose-200/80 flex items-start gap-2.5 text-rose-800 text-xs">
-            <AlertCircle className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
+          <div className="mb-5 p-3 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 flex items-start gap-2.5 text-[#C92121] text-xs font-medium">
+            <AlertCircle className="h-4 w-4 text-[#C92121] shrink-0 mt-0.5" />
             <span className="leading-tight">{activeError}</span>
           </div>
         )}
@@ -92,7 +102,7 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="login-email"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 Email Perusahaan
               </label>
@@ -103,14 +113,14 @@ export default function LoginPage() {
                 required
                 placeholder="nama@perusahaan.com"
                 autoComplete="email"
-                className="w-full text-sm h-12 px-3.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                className="w-full text-sm h-12 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="login-password"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 Kata Sandi (Password)
               </label>
@@ -122,12 +132,12 @@ export default function LoginPage() {
                   required
                   placeholder="Masukkan kata sandi"
                   autoComplete="current-password"
-                  className="w-full text-sm h-12 px-3.5 pr-11 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                  className="w-full text-sm h-12 px-3.5 pr-11 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 hover:text-[#060057]"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -141,7 +151,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="mt-2 w-full h-13 min-h-[52px] bg-slate-900 hover:bg-black active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all"
+              className="mt-2 w-full h-13 min-h-[52px] bg-[#060057] hover:bg-[#04003d] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-[#060057]/20 transition-all"
             >
               {isPending ? (
                 <span>Memverifikasi...</span>
@@ -158,7 +168,7 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-fullname"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 Nama Lengkap
               </label>
@@ -168,14 +178,14 @@ export default function LoginPage() {
                 type="text"
                 required
                 placeholder="Contoh: Budi Santoso"
-                className="w-full text-sm h-11 px-3.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-empid"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 ID Pegawai (NIK / NIP)
               </label>
@@ -185,16 +195,16 @@ export default function LoginPage() {
                 type="text"
                 required
                 placeholder="Contoh: EMP-001"
-                className="w-full text-sm h-11 px-3.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-email"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
-                Email
+                Email Perusahaan
               </label>
               <input
                 id="reg-email"
@@ -202,14 +212,14 @@ export default function LoginPage() {
                 type="email"
                 required
                 placeholder="nama@perusahaan.com"
-                className="w-full text-sm h-11 px-3.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-password"
-                className="text-xs font-semibold text-slate-700"
+                className="text-xs font-bold text-[#060057]"
               >
                 Kata Sandi
               </label>
@@ -221,12 +231,12 @@ export default function LoginPage() {
                   required
                   minLength={6}
                   placeholder="Minimal 6 karakter"
-                  className="w-full text-sm h-11 px-3.5 pr-11 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 text-slate-800 placeholder:text-slate-400 transition"
+                  className="w-full text-sm h-11 px-3.5 pr-11 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 hover:text-[#060057]"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -240,7 +250,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="mt-2 w-full h-13 min-h-[52px] bg-blue-600 hover:bg-blue-700 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all"
+              className="mt-2 w-full h-13 min-h-[52px] bg-[#D74D0D] hover:bg-[#b83e08] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-[#D74D0D]/20 transition-all"
             >
               {isPending ? (
                 <span>Mendaftarkan Akun...</span>
@@ -255,12 +265,11 @@ export default function LoginPage() {
         )}
 
         <div className="mt-8 text-center">
-          <p className="text-[11px] text-slate-400">
-            Sistem Presensi & Monitoring Karyawan &bull; Internal Company Only
+          <p className="text-[11px] text-[#060057]/45 font-medium">
+            CUBE Ecosystem &bull; Internal Company Only
           </p>
         </div>
       </div>
     </div>
   );
 }
-
