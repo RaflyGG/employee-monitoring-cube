@@ -2,18 +2,21 @@
 
 import { useTransition } from "react";
 import Image from "next/image";
-import { LogOut, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { LogOut, Loader2, Shield } from "lucide-react";
 import { logoutAction } from "@/actions/auth";
 
 interface HeaderProps {
   companyName?: string;
   userName?: string;
+  isAdmin?: boolean;
   onLogout?: () => void;
 }
 
 export function Header({
   companyName = "CUBE",
   userName = "Pegawai",
+  isAdmin = false,
   onLogout,
 }: HeaderProps) {
   const [isPending, startTransition] = useTransition();
@@ -58,20 +61,31 @@ export function Header({
           </div>
         </div>
 
-        {/* Logout Button */}
-        <button
-          type="button"
-          onClick={handleLogout}
-          disabled={isPending}
-          aria-label="Logout"
-          className="h-9 w-9 rounded-xl border border-[#060057]/15 flex items-center justify-center text-[#060057]/60 hover:text-[#C92121] hover:bg-[#C92121]/5 hover:border-[#C92121]/30 disabled:opacity-50 transition-colors"
-        >
-          {isPending ? (
-            <Loader2 className="h-4 w-4 animate-spin text-[#060057]" />
-          ) : (
-            <LogOut className="h-4 w-4" />
+        {/* Actions: Admin Shortcut & Logout */}
+        <div className="flex items-center gap-2">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="h-9 px-2.5 rounded-xl bg-[#060057] text-white text-[11px] font-bold flex items-center gap-1.5 hover:bg-[#060057]/90 transition-colors shadow-xs"
+            >
+              <Shield className="h-3.5 w-3.5 text-[#E9B501]" />
+              <span>Admin</span>
+            </Link>
           )}
-        </button>
+          <button
+            type="button"
+            onClick={handleLogout}
+            disabled={isPending}
+            aria-label="Logout"
+            className="h-9 w-9 rounded-xl border border-[#060057]/15 flex items-center justify-center text-[#060057]/60 hover:text-[#C92121] hover:bg-[#C92121]/5 hover:border-[#C92121]/30 disabled:opacity-50 transition-colors"
+          >
+            {isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin text-[#060057]" />
+            ) : (
+              <LogOut className="h-4 w-4" />
+            )}
+          </button>
+        </div>
       </div>
     </header>
   );

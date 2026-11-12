@@ -3,39 +3,13 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { calculateDistance, DEFAULT_OFFICE } from "@/utils/geofence";
+import { getJakartaTodayDate, getJakartaCurrentTime } from "@/lib/date";
 import type { Attendance, Office } from "@/types/database";
 
 export interface AttendanceActionResult {
   success?: boolean;
   error?: string | null;
   attendance?: Attendance | null;
-}
-
-/**
- * Returns today's date in YYYY-MM-DD format based on Asia/Jakarta timezone
- */
-function getJakartaTodayDate(): string {
-  const formatter = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Jakarta",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-  return formatter.format(new Date()); // Outputs YYYY-MM-DD
-}
-
-/**
- * Returns current time in HH:mm:ss format based on Asia/Jakarta timezone
- */
-function getJakartaCurrentTime(): string {
-  const formatter = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Jakarta",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false,
-  });
-  return formatter.format(new Date());
 }
 
 /**

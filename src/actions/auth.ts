@@ -55,7 +55,7 @@ export async function loginAction(
   try {
     const supabase = await createClient();
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -64,8 +64,20 @@ export async function loginAction(
       return { error: handleAuthErrorMessage(error.message) };
     }
 
+    let destination = "/";
+    if (signInData.user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", signInData.user.id)
+        .maybeSingle();
+      if (profile?.role === "HR_ADMIN" || profile?.role === "SUPERVISOR") {
+        destination = "/admin";
+      }
+    }
+
     revalidatePath("/", "layout");
-    redirect("/");
+    redirect(destination);
   } catch (err: unknown) {
     if (isRedirect(err)) throw err;
     const msg =
