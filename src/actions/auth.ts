@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import type { User } from "@supabase/supabase-js";
 import type { Profile } from "@/types/database";
 
 export interface AuthState {
@@ -27,10 +28,13 @@ function handleAuthErrorMessage(message: string): string {
   return message;
 }
 
-function isRedirect(err: any): boolean {
+function isRedirect(err: unknown): boolean {
+  if (typeof err !== "object" || err === null) return false;
+  const record = err as { message?: unknown; digest?: unknown };
   return (
-    err?.message === "NEXT_REDIRECT" ||
-    (typeof err?.digest === "string" && err.digest.startsWith("NEXT_REDIRECT"))
+    record.message === "NEXT_REDIRECT" ||
+    (typeof record.digest === "string" &&
+      record.digest.startsWith("NEXT_REDIRECT"))
   );
 }
 
@@ -62,12 +66,12 @@ export async function loginAction(
 
     revalidatePath("/", "layout");
     redirect("/");
-  } catch (err: any) {
+  } catch (err: unknown) {
     if (isRedirect(err)) throw err;
+    const msg =
+      err instanceof Error ? err.message : "Gagal menghubungi server Supabase.";
     return {
-      error: handleAuthErrorMessage(
-        err?.message || "Gagal menghubungi server Supabase."
-      ),
+      error: handleAuthErrorMessage(msg),
     };
   }
 }
@@ -121,12 +125,12 @@ export async function registerAction(
       message:
         "Pendaftaran berhasil! Akun Anda telah dibuat. Silakan beralih ke tab Masuk untuk login.",
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     if (isRedirect(err)) throw err;
+    const msg =
+      err instanceof Error ? err.message : "Gagal menghubungi server Supabase.";
     return {
-      error: handleAuthErrorMessage(
-        err?.message || "Gagal menghubungi server Supabase."
-      ),
+      error: handleAuthErrorMessage(msg),
     };
   }
 }
@@ -145,7 +149,7 @@ export async function logoutAction() {
  * Get current logged in user & profile
  */
 export async function getCurrentUser(): Promise<{
-  user: any;
+  user: User | null;
   profile: Profile | null;
 }> {
   try {

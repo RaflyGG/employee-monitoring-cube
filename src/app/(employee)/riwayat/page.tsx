@@ -38,10 +38,7 @@ export default function RiwayatPage() {
     });
   };
 
-  const loadHistory = useCallback(async (isManualRefresh = false) => {
-    if (isManualRefresh) setIsRefreshing(true);
-    else setIsLoading(true);
-
+  const loadHistory = useCallback(async () => {
     try {
       const data = await getAttendanceHistory();
       setHistory(data.history);
@@ -54,8 +51,15 @@ export default function RiwayatPage() {
     }
   }, []);
 
+  const handleManualRefresh = () => {
+    setIsRefreshing(true);
+    void loadHistory();
+  };
+
   useEffect(() => {
-    loadHistory();
+    queueMicrotask(() => {
+      void loadHistory();
+    });
   }, [loadHistory]);
 
   // Format Date in Indonesian locale
@@ -122,7 +126,7 @@ export default function RiwayatPage() {
         </div>
         <button
           type="button"
-          onClick={() => loadHistory(true)}
+          onClick={handleManualRefresh}
           disabled={isRefreshing || isLoading}
           aria-label="Refresh Data"
           className="p-2 rounded-xl bg-white border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"

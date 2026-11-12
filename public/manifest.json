@@ -1,17 +1,17 @@
 {
-  "name": "Employee Monitoring & Attendance",
-  "short_name": "EmpMonitor",
-  "description": "Aplikasi Absensi & Pelaporan Tugas Harian Pegawai",
+  "name": "CUBE - Employee Monitoring & Attendance",
+  "short_name": "CUBE",
+  "description": "Aplikasi Presensi & Pelaporan Tugas Harian Pegawai",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0f172a",
+  "background_color": "#F6F8F1",
+  "theme_color": "#060057",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/cube-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }

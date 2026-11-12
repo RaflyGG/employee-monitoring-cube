@@ -35,19 +35,13 @@ export default function AktivitasPage() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Load tasks from backend
-  const loadTasks = useCallback(async (isManualRefresh = false) => {
-    if (isManualRefresh) setIsRefreshing(true);
-    else setIsLoading(true);
-    setActionError(null);
-
+  const loadTasks = useCallback(async () => {
     try {
       const data = await getTodayTasks();
-      if (data.error) {
-        setActionError(data.error);
-      }
+      setActionError(data.error ?? null);
       setTasks(data.tasks);
       setHasClockedInToday(data.hasClockedInToday);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Gagal memuat tugas harian:", err);
       setActionError("Gagal memuat daftar tugas harian.");
     } finally {
@@ -56,8 +50,16 @@ export default function AktivitasPage() {
     }
   }, []);
 
+  const handleManualRefresh = () => {
+    setIsRefreshing(true);
+    setActionError(null);
+    void loadTasks();
+  };
+
   useEffect(() => {
-    loadTasks();
+    queueMicrotask(() => {
+      void loadTasks();
+    });
   }, [loadTasks]);
 
   // Create Task Handler
@@ -145,7 +147,7 @@ export default function AktivitasPage() {
         </div>
         <button
           type="button"
-          onClick={() => loadTasks(true)}
+          onClick={handleManualRefresh}
           disabled={isRefreshing || isLoading}
           aria-label="Refresh Data"
           className="p-2 rounded-xl bg-white border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"

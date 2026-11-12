@@ -73,17 +73,16 @@ export default function AttendancePage() {
   const [geoError, setGeoError] = useState<string | null>(null);
   const [isRefreshingGps, setIsRefreshingGps] = useState<boolean>(false);
 
-  // Request GPS
+  // Request GPS (async callbacks only so effect stays safe from cascading renders)
   const requestLocation = useCallback(() => {
     if (!navigator.geolocation) {
-      setGeoStatus("error");
-      setGeoError("Browser Anda tidak mendukung fitur Geolocation.");
+      queueMicrotask(() => {
+        setGeoStatus("error");
+        setGeoError("Browser Anda tidak mendukung fitur Geolocation.");
+        setIsRefreshingGps(false);
+      });
       return;
     }
-
-    setGeoStatus("loading");
-    setGeoError(null);
-    setIsRefreshingGps(true);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -120,9 +119,15 @@ export default function AttendancePage() {
     );
   }, [officeConfig]);
 
+  const handleRefreshLocation = () => {
+    setGeoStatus("loading");
+    setGeoError(null);
+    setIsRefreshingGps(true);
+    requestLocation();
+  };
+
   // Load initial attendance state from Supabase
   const loadInitialData = useCallback(async () => {
-    setIsLoadingRecord(true);
     try {
       const data = await getTodayAttendance();
       if (data.office) {
@@ -133,7 +138,7 @@ export default function AttendancePage() {
         });
       }
       setAttendanceRecord(data.attendance);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Gagal memuat status absensi:", err);
     } finally {
       setIsLoadingRecord(false);
@@ -141,7 +146,9 @@ export default function AttendancePage() {
   }, []);
 
   useEffect(() => {
-    loadInitialData();
+    queueMicrotask(() => {
+      void loadInitialData();
+    });
   }, [loadInitialData]);
 
   useEffect(() => {
@@ -276,7 +283,7 @@ export default function AttendancePage() {
           </div>
           <button
             type="button"
-            onClick={requestLocation}
+            onClick={handleRefreshLocation}
             disabled={isRefreshingGps}
             aria-label="Refresh Lokasi"
             className="p-1.5 rounded-lg border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"
@@ -347,7 +354,7 @@ export default function AttendancePage() {
               </span>
               <button
                 type="button"
-                onClick={requestLocation}
+                onClick={handleRefreshLocation}
                 className="mt-2 text-xs font-bold text-[#C92121] underline self-start"
               >
                 Coba Lagi
