@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CUBE - Employee Monitoring & Attendance System
 
-## Getting Started
+Aplikasi web modern (*mobile-first*) untuk presensi berbasis radius lokasi (Geofencing GPS) dan pelaporan aktivitas tugas harian pegawai, terintegrasi dengan dashboard monitoring untuk HR & Supervisor.
 
-First, run the development server:
+Built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, dan **Supabase (PostgreSQL & SSR Auth)**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Live Demo
+- **Production URL:** [https://employee-monitoring-cube.vercel.app](https://employee-monitoring-cube.vercel.app)
+- **Panduan Penggunaan Lengkap:** Lihat dokumen [PANDUAN_PENGGUNA.md](./PANDUAN_PENGGUNA.md)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Fitur Utama
 
-## Learn More
+### 📱 Sisi Pegawai (Mobile-First UI)
+- **Presensi GPS Geofencing:** Clock-In dan Clock-Out otomatis mendeteksi jarak ke titik kantor, menghitung durasi kerja, dan menandai keterlambatan secara transparan.
+- **Aktivitas Harian:** Pelaporan progres tugas harian (*In Progress*, *Completed*, *Blocked*) per hari kerja.
+- **Riwayat Absensi & Accordion Tugas:** Rekapitulasi kehadiran pribadi, akumulasi jam kerja, dan daftar aktivitas yang dapat di-expand per tanggal.
+- **Mobile Safe Area & PWA Ready:** Mendukung instalasi ke layar utama (Add to Home Screen) di iOS dan Android dengan safe-area notch & gesture bar.
 
-To learn more about Next.js, take a look at the following resources:
+### 🛡️ Sisi HR & Admin (`/admin`)
+- **Monitoring Hari Ini (Live):** Dashboard metrik kehadiran tim secara *real-time*, inspeksi titik koordinat GPS ke Google Maps, serta rekap tugas harian tiap pegawai.
+- **Rekapitulasi & Export CSV:** Filter riwayat kehadiran berdasarkan rentang tanggal, pegawai, dan departemen, dilengkapi unduhan spreadsheet Excel/CSV.
+- **Manajemen Pegawai:** Pengaturan role akses (`EMPLOYEE`, `SUPERVISOR`, `HR_ADMIN`), divisi, penempatan kantor, dan status aktif.
+- **Konfigurasi Kantor & Geofence:** Manajemen titik koordinat kantor, radius toleransi GPS (meter), jam batas masuk/pulang WIB, dan tombol *Ambil GPS Lokasi Saya*.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tech Stack & Arsitektur
+- **Framework:** Next.js 16.4.5 (App Router, Server Actions, Proxy)
+- **Styling:** Tailwind CSS v4 dengan CUBE Brand Palette (`#F6F8F1`, `#060057`, `#D74D0D`, `#E9B501`, `#C92121`)
+- **Backend & Database:** Supabase PostgreSQL dengan Row-Level Security (RLS)
+- **Authentication:** Supabase SSR Auth with secure HTTP-only cookies
+- **Icons:** Lucide React
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💻 Panduan Menjalankan Lokal
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/RaflyGG/employee-monitoring-cube.git
+   cd employee-monitoring-cube
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Konfigurasi Environment Variables:**
+   Salin `.env.local.example` menjadi `.env.local` dan isi kredensial Supabase Anda:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   ```
+
+4. **Jalankan database migration & RLS:**
+   Eksekusi query yang terdapat di `supabase/schema.sql` dan `supabase/admin_policies.sql` pada SQL Editor Supabase.
+
+5. **Jalankan development server:**
+   ```bash
+   npm run dev
+   ```
+   Buka [http://localhost:3000](http://localhost:3000) di browser.
+
+---
+
+## 📄 Lisensi
+Hak cipta &copy; 2026 CUBE Studio.
