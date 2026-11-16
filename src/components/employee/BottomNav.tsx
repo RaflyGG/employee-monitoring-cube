@@ -20,7 +20,12 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-[#060057]/10 px-6 py-2 z-40 shadow-xs">
+    <nav
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-[#060057]/10 px-6 pt-2 z-40 shadow-xs"
+      style={{
+        paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0.75rem))",
+      }}
+    >
       <div className="flex items-center justify-between">
         {navItems.map((item) => {
           const isActive =

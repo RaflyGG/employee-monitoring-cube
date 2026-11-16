@@ -32,7 +32,10 @@ export function Header({
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#060057]/10 px-4 py-2.5">
+    <header
+      className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#060057]/10 px-4 py-2.5"
+      style={{ paddingTop: "max(0.625rem, env(safe-area-inset-top, 0.625rem))" }}
+    >
       <div className="flex items-center justify-between">
         {/* Brand & User Greeting */}
         <div className="flex items-center gap-3">

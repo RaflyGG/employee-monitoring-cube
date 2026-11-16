@@ -21,7 +21,13 @@ export default async function EmployeeLayout({
     <div className="min-h-screen bg-[#ECEFE5] sm:py-0">
       <div className="max-w-md mx-auto min-h-screen bg-[#F6F8F1] flex flex-col shadow-xs border-x border-[#060057]/10 relative">
         <Header userName={userName} companyName="CUBE" isAdmin={isAdmin} />
-        <main className="flex-1 flex flex-col px-4 py-4 pb-24">
+        <main
+          className="flex-1 flex flex-col px-4 py-4"
+          style={{
+            paddingBottom:
+              "calc(5rem + max(0.75rem, env(safe-area-inset-bottom, 0.75rem)))",
+          }}
+        >
           {children}
         </main>
         <BottomNav />
