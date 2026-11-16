@@ -111,19 +111,39 @@ export async function registerAction(
   try {
     const supabase = await createClient();
 
+    // 1. Cek apakah employee_id sudah terdaftar di profiles
+    const { data: existingProfile } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("employee_id", employeeId.trim())
+      .maybeSingle();
+
+    if (existingProfile) {
+      return {
+        error: "ID Pegawai ini sudah terdaftar. Gunakan ID Pegawai Anda yang valid.",
+      };
+    }
+
     const { data, error } = await supabase.auth.signUp({
-      email,
+      email: email.trim(),
       password,
       options: {
         data: {
-          full_name: fullName,
-          employee_id: employeeId,
+          full_name: fullName.trim(),
+          employee_id: employeeId.trim(),
         },
       },
     });
 
     if (error) {
       return { error: handleAuthErrorMessage(error.message) };
+    }
+
+    // Supabase anti-enumeration: jika email sudah ada, data.user.identities bernilai []
+    if (data.user && (!data.user.identities || data.user.identities.length === 0)) {
+      return {
+        error: "Email ini sudah terdaftar. Silakan langsung login pada tab Masuk.",
+      };
     }
 
     // Jika session langsung aktif
