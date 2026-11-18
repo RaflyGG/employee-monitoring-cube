@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Clock, CheckSquare, History } from "lucide-react";
+import { Clock, CheckSquare, Users, History } from "lucide-react";
 
 interface NavItem {
   label: string;
@@ -13,6 +13,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: "Absen", href: "/", icon: Clock },
   { label: "Aktivitas", href: "/aktivitas", icon: CheckSquare },
+  { label: "Tim", href: "/tim", icon: Users },
   { label: "Riwayat", href: "/riwayat", icon: History },
 ];
 
