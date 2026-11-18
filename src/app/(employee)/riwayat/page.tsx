@@ -117,10 +117,10 @@ export default function RiwayatPage() {
       {/* Header & Refresh */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-base font-extrabold text-[#060057] tracking-tight">
+          <h1 className="text-base font-extrabold text-[#060057] dark:text-[#F6F8F1] tracking-tight">
             Riwayat Presensi
           </h1>
-          <p className="text-xs text-[#060057]/60">
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60">
             Rekap kehadiran & laporan aktivitas harian
           </p>
         </div>
@@ -129,54 +129,54 @@ export default function RiwayatPage() {
           onClick={handleManualRefresh}
           disabled={isRefreshing || isLoading}
           aria-label="Refresh Data"
-          className="p-2 rounded-xl bg-white border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"
+          className="p-2 rounded-xl bg-white dark:bg-[#141926] border border-[#060057]/15 dark:border-white/10 text-[#060057]/70 dark:text-[#F6F8F1]/70 hover:bg-[#F6F8F1] dark:hover:bg-[#1B2234] disabled:opacity-50 transition-colors"
         >
           <RefreshCw
             className={`h-4 w-4 ${
-              isRefreshing ? "animate-spin text-[#D74D0D]" : ""
+              isRefreshing ? "animate-spin text-[#D74D0D] dark:text-[#FF6B2B]" : ""
             }`}
           />
         </button>
       </div>
 
       {/* Mini Stats Summary */}
-      <section className="bg-white border border-[#060057]/10 rounded-2xl p-4 shadow-xs">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#060057]/45 block mb-3">
+      <section className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs transition-colors duration-150">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#060057]/45 dark:text-[#F6F8F1]/50 block mb-3">
           Ringkasan Kehadiran
         </span>
         <div className="grid grid-cols-4 gap-2 text-center">
-          <div className="bg-[#F6F8F1] rounded-xl p-2.5 border border-[#060057]/10 flex flex-col items-center">
-            <span className="text-base font-black text-[#060057]">
+          <div className="bg-[#F6F8F1] dark:bg-[#0B0E17] rounded-xl p-2.5 border border-[#060057]/10 dark:border-white/10 flex flex-col items-center">
+            <span className="text-base font-black text-[#060057] dark:text-[#F6F8F1]">
               {stats.totalDays}
             </span>
-            <span className="text-[10px] text-[#060057]/60 font-semibold mt-0.5">
+            <span className="text-[10px] text-[#060057]/60 dark:text-[#F6F8F1]/60 font-semibold mt-0.5">
               Total Hadir
             </span>
           </div>
 
-          <div className="bg-emerald-50/70 rounded-xl p-2.5 border border-emerald-200/70 flex flex-col items-center">
-            <span className="text-base font-black text-emerald-700">
+          <div className="bg-emerald-50/70 dark:bg-emerald-950/40 rounded-xl p-2.5 border border-emerald-200/70 dark:border-emerald-800/60 flex flex-col items-center">
+            <span className="text-base font-black text-emerald-700 dark:text-emerald-300">
               {stats.onTimeCount}
             </span>
-            <span className="text-[10px] text-emerald-700/80 font-semibold mt-0.5">
+            <span className="text-[10px] text-emerald-700/80 dark:text-emerald-300/80 font-semibold mt-0.5">
               Tepat Waktu
             </span>
           </div>
 
-          <div className="bg-[#E9B501]/15 rounded-xl p-2.5 border border-[#E9B501]/40 flex flex-col items-center">
-            <span className="text-base font-black text-[#8f6a00]">
+          <div className="bg-[#E9B501]/15 dark:bg-[#E9B501]/10 rounded-xl p-2.5 border border-[#E9B501]/40 dark:border-[#E9B501]/30 flex flex-col items-center">
+            <span className="text-base font-black text-[#8f6a00] dark:text-[#FCD34D]">
               {stats.lateCount}
             </span>
-            <span className="text-[10px] text-[#8f6a00] font-semibold mt-0.5">
+            <span className="text-[10px] text-[#8f6a00] dark:text-[#FCD34D]/80 font-semibold mt-0.5">
               Terlambat
             </span>
           </div>
 
-          <div className="bg-[#D74D0D]/10 rounded-xl p-2.5 border border-[#D74D0D]/25 flex flex-col items-center">
-            <span className="text-xs font-black text-[#D74D0D] font-mono mt-1">
+          <div className="bg-[#D74D0D]/10 dark:bg-[#FF6B2B]/15 rounded-xl p-2.5 border border-[#D74D0D]/25 dark:border-[#FF6B2B]/30 flex flex-col items-center">
+            <span className="text-xs font-black text-[#D74D0D] dark:text-[#FF6B2B] font-mono mt-1">
               {stats.totalHoursMinutes}
             </span>
-            <span className="text-[10px] text-[#D74D0D] font-semibold mt-0.5">
+            <span className="text-[10px] text-[#D74D0D] dark:text-[#FF6B2B] font-semibold mt-0.5">
               Jam Kerja
             </span>
           </div>
@@ -184,14 +184,14 @@ export default function RiwayatPage() {
       </section>
 
       {/* Filter Tabs */}
-      <div className="flex bg-white p-1 rounded-xl border border-[#060057]/10">
+      <div className="flex bg-white dark:bg-[#141926] p-1 rounded-xl border border-[#060057]/10 dark:border-white/10">
         <button
           type="button"
           onClick={() => setFilterMode("all")}
           className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
             filterMode === "all"
-              ? "bg-[#060057] text-white shadow-xs"
-              : "text-[#060057]/55 hover:text-[#060057]"
+              ? "bg-[#060057] dark:bg-[#1B2234] text-white dark:text-[#F6F8F1] border border-transparent dark:border-white/10 shadow-xs"
+              : "text-[#060057]/55 dark:text-[#F6F8F1]/55 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
           }`}
         >
           Semua Data ({history.length})
@@ -201,8 +201,8 @@ export default function RiwayatPage() {
           onClick={() => setFilterMode("this_month")}
           className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
             filterMode === "this_month"
-              ? "bg-[#060057] text-white shadow-xs"
-              : "text-[#060057]/55 hover:text-[#060057]"
+              ? "bg-[#060057] dark:bg-[#1B2234] text-white dark:text-[#F6F8F1] border border-transparent dark:border-white/10 shadow-xs"
+              : "text-[#060057]/55 dark:text-[#F6F8F1]/55 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
           }`}
         >
           Bulan Ini
@@ -211,19 +211,19 @@ export default function RiwayatPage() {
 
       {/* List Container */}
       {isLoading ? (
-        <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs">
-          <RefreshCw className="h-5 w-5 text-[#D74D0D] animate-spin mx-auto mb-2" />
-          <p className="text-xs text-[#060057]/60 font-medium">
+        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs">
+          <RefreshCw className="h-5 w-5 text-[#D74D0D] dark:text-[#FF6B2B] animate-spin mx-auto mb-2" />
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 font-medium">
             Memuat riwayat kehadiran...
           </p>
         </div>
       ) : filteredHistory.length === 0 ? (
-        <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
-          <History className="h-8 w-8 text-[#060057]/25 mb-2" />
-          <p className="text-sm font-bold text-[#060057]">
+        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
+          <History className="h-8 w-8 text-[#060057]/25 dark:text-[#F6F8F1]/25 mb-2" />
+          <p className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1]">
             Belum Ada Riwayat
           </p>
-          <p className="text-xs text-[#060057]/50 mt-1 max-w-[240px]">
+          <p className="text-xs text-[#060057]/50 dark:text-[#F6F8F1]/50 mt-1 max-w-[240px]">
             Catatan kehadiran akan muncul otomatis setelah Anda melakukan
             Clock-In.
           </p>
@@ -243,13 +243,13 @@ export default function RiwayatPage() {
             return (
               <div
                 key={item.id}
-                className="bg-white border border-[#060057]/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3 transition-shadow hover:shadow-sm"
+                className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3 transition-shadow hover:shadow-sm"
               >
                 {/* Date & Badges Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5 text-[#D74D0D]" />
-                    <span className="text-xs font-bold text-[#060057]">
+                    <Calendar className="h-3.5 w-3.5 text-[#D74D0D] dark:text-[#FF6B2B]" />
+                    <span className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]">
                       {formatDateIndo(item.date)}
                     </span>
                   </div>
@@ -259,8 +259,8 @@ export default function RiwayatPage() {
                     <span
                       className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                         isOnTime
-                          ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                          : "bg-[#E9B501]/20 text-[#7d6000] border border-[#E9B501]/50"
+                          ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                          : "bg-[#E9B501]/20 dark:bg-[#E9B501]/15 text-[#7d6000] dark:text-[#FCD34D] border border-[#E9B501]/50 dark:border-[#E9B501]/30"
                       }`}
                     >
                       {isOnTime ? "Tepat Waktu" : "Terlambat"}
@@ -268,7 +268,7 @@ export default function RiwayatPage() {
 
                     {/* Out of Area Warning Badge */}
                     {item.is_out_of_area && (
-                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[#C92121]/10 text-[#C92121] border border-[#C92121]/25 inline-flex items-center gap-0.5">
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[#C92121]/10 dark:bg-[#EF4444]/15 text-[#C92121] dark:text-[#EF4444] border border-[#C92121]/25 dark:border-[#EF4444]/30 inline-flex items-center gap-0.5">
                         <AlertTriangle className="h-2.5 w-2.5" />
                         Luar Radius
                       </span>
@@ -277,21 +277,21 @@ export default function RiwayatPage() {
                 </div>
 
                 {/* Details Grid */}
-                <div className="grid grid-cols-3 gap-2 p-2.5 bg-[#F6F8F1] rounded-xl border border-[#060057]/10 text-xs">
+                <div className="grid grid-cols-3 gap-2 p-2.5 bg-[#F6F8F1] dark:bg-[#0B0E17] rounded-xl border border-[#060057]/10 dark:border-white/10 text-xs">
                   <div>
-                    <span className="text-[10px] text-[#060057]/50 font-semibold block">
+                    <span className="text-[10px] text-[#060057]/50 dark:text-[#F6F8F1]/50 font-semibold block">
                       Jam Masuk
                     </span>
-                    <span className="font-extrabold text-[#060057] font-mono text-[11px]">
+                    <span className="font-extrabold text-[#060057] dark:text-[#F6F8F1] font-mono text-[11px]">
                       {formatTimeStr(item.clock_in)}
                     </span>
                   </div>
 
                   <div>
-                    <span className="text-[10px] text-[#060057]/50 font-semibold block">
+                    <span className="text-[10px] text-[#060057]/50 dark:text-[#F6F8F1]/50 font-semibold block">
                       Jam Pulang
                     </span>
-                    <span className="font-extrabold text-[#060057] font-mono text-[11px]">
+                    <span className="font-extrabold text-[#060057] dark:text-[#F6F8F1] font-mono text-[11px]">
                       {isCompleted
                         ? formatTimeStr(item.clock_out)
                         : "Belum Pulang"}
@@ -299,12 +299,12 @@ export default function RiwayatPage() {
                   </div>
 
                   <div>
-                    <span className="text-[10px] text-[#060057]/50 font-semibold block">
+                    <span className="text-[10px] text-[#060057]/50 dark:text-[#F6F8F1]/50 font-semibold block">
                       Durasi
                     </span>
                     <span
                       className={`font-extrabold font-mono text-[11px] ${
-                        isCompleted ? "text-[#D74D0D]" : "text-[#8f6a00]"
+                        isCompleted ? "text-[#D74D0D] dark:text-[#FF6B2B]" : "text-[#8f6a00] dark:text-[#FCD34D]"
                       }`}
                     >
                       {getDuration(item.clock_in, item.clock_out)}
@@ -314,32 +314,32 @@ export default function RiwayatPage() {
 
                 {/* Remarks/Notes if any */}
                 {item.notes && (
-                  <div className="text-[11px] text-[#060057]/75 bg-[#F6F8F1]/60 px-2.5 py-1.5 rounded-lg border border-[#060057]/10">
-                    <span className="font-bold text-[#060057]">Catatan: </span>
+                  <div className="text-[11px] text-[#060057]/75 dark:text-[#F6F8F1]/75 bg-[#F6F8F1]/60 dark:bg-[#0B0E17]/60 px-2.5 py-1.5 rounded-lg border border-[#060057]/10 dark:border-white/10">
+                    <span className="font-bold text-[#060057] dark:text-[#F6F8F1]">Catatan: </span>
                     {item.notes}
                   </div>
                 )}
 
                 {/* Cara B: Expandable Daily Tasks Section */}
-                <div className="border-t border-[#060057]/10 pt-2.5">
+                <div className="border-t border-[#060057]/10 dark:border-white/10 pt-2.5">
                   <button
                     type="button"
                     onClick={() => toggleExpand(item.id)}
-                    className="w-full flex items-center justify-between text-xs py-1 text-[#060057]/80 hover:text-[#060057] transition"
+                    className="w-full flex items-center justify-between text-xs py-1 text-[#060057]/80 dark:text-[#F6F8F1]/80 hover:text-[#060057] dark:hover:text-[#F6F8F1] transition"
                   >
                     <div className="flex items-center gap-1.5">
-                      <ListTodo className="h-3.5 w-3.5 text-[#D74D0D]" />
+                      <ListTodo className="h-3.5 w-3.5 text-[#D74D0D] dark:text-[#FF6B2B]" />
                       <span className="font-bold text-[11px]">
                         Laporan Tugas ({taskCount})
                       </span>
                       {taskCount > 0 && (
-                        <span className="text-[10px] text-emerald-700 font-semibold">
+                        <span className="text-[10px] text-emerald-700 dark:text-emerald-300 font-semibold">
                           &bull; {completedTasks}/{taskCount} Selesai
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-1 text-[11px] text-[#060057]/50 font-semibold">
+                    <div className="flex items-center gap-1 text-[11px] text-[#060057]/50 dark:text-[#F6F8F1]/50 font-semibold">
                       <span>{isExpanded ? "Tutup" : "Lihat"}</span>
                       {isExpanded ? (
                         <ChevronUp className="h-3.5 w-3.5" />
@@ -351,9 +351,9 @@ export default function RiwayatPage() {
 
                   {/* Accordion Content */}
                   {isExpanded && (
-                    <div className="mt-2.5 flex flex-col gap-1.5 bg-[#F6F8F1] rounded-xl p-2.5 border border-[#060057]/10">
+                    <div className="mt-2.5 flex flex-col gap-1.5 bg-[#F6F8F1] dark:bg-[#0B0E17] rounded-xl p-2.5 border border-[#060057]/10 dark:border-white/10">
                       {taskCount === 0 ? (
-                        <p className="text-[11px] text-[#060057]/45 text-center py-1">
+                        <p className="text-[11px] text-[#060057]/45 dark:text-[#F6F8F1]/45 text-center py-1">
                           Tidak ada catatan aktivitas di hari ini.
                         </p>
                       ) : (
@@ -364,23 +364,23 @@ export default function RiwayatPage() {
                           return (
                             <div
                               key={task.id}
-                              className="flex items-start justify-between gap-2 p-2 rounded-lg bg-white border border-[#060057]/10"
+                              className="flex items-start justify-between gap-2 p-2 rounded-lg bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10"
                             >
                               <div className="flex items-start gap-2 flex-1 min-w-0">
                                 <span className="mt-0.5 shrink-0">
                                   {isTaskDone ? (
-                                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
                                   ) : isTaskBlocked ? (
-                                    <AlertCircle className="h-3.5 w-3.5 text-[#C92121]" />
+                                    <AlertCircle className="h-3.5 w-3.5 text-[#C92121] dark:text-[#EF4444]" />
                                   ) : (
-                                    <PlayCircle className="h-3.5 w-3.5 text-[#E9B501]" />
+                                    <PlayCircle className="h-3.5 w-3.5 text-[#E9B501] dark:text-[#FCD34D]" />
                                   )}
                                 </span>
                                 <span
                                   className={`text-[11px] leading-tight break-words ${
                                     isTaskDone
-                                      ? "line-through text-[#060057]/40"
-                                      : "text-[#060057] font-semibold"
+                                      ? "line-through text-[#060057]/40 dark:text-[#F6F8F1]/40"
+                                      : "text-[#060057] dark:text-[#F6F8F1] font-semibold"
                                   }`}
                                 >
                                   {task.task_description}
@@ -390,10 +390,10 @@ export default function RiwayatPage() {
                               <span
                                 className={`text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0 ${
                                   isTaskDone
-                                    ? "bg-emerald-50 text-emerald-700"
+                                    ? "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300"
                                     : isTaskBlocked
-                                    ? "bg-[#C92121]/10 text-[#C92121]"
-                                    : "bg-[#E9B501]/20 text-[#7d6000]"
+                                    ? "bg-[#C92121]/10 dark:bg-[#EF4444]/15 text-[#C92121] dark:text-[#EF4444]"
+                                    : "bg-[#E9B501]/20 dark:bg-[#E9B501]/15 text-[#7d6000] dark:text-[#FCD34D]"
                                 }`}
                               >
                                 {isTaskDone

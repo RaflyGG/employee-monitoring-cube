@@ -138,10 +138,10 @@ export default function AktivitasPage() {
       {/* Header & Refresh */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-base font-extrabold text-[#060057] tracking-tight">
+          <h1 className="text-base font-extrabold text-[#060057] dark:text-[#F6F8F1] tracking-tight">
             Aktivitas Hari Ini
           </h1>
-          <p className="text-xs text-[#060057]/60">
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60">
             Catat dan laporkan progres tugas harian Anda
           </p>
         </div>
@@ -150,11 +150,11 @@ export default function AktivitasPage() {
           onClick={handleManualRefresh}
           disabled={isRefreshing || isLoading}
           aria-label="Refresh Data"
-          className="p-2 rounded-xl bg-white border border-[#060057]/15 text-[#060057]/70 hover:bg-[#F6F8F1] disabled:opacity-50 transition-colors"
+          className="p-2 rounded-xl bg-white dark:bg-[#141926] border border-[#060057]/15 dark:border-white/10 text-[#060057]/70 dark:text-[#F6F8F1]/70 hover:bg-[#F6F8F1] dark:hover:bg-[#1B2234] disabled:opacity-50 transition-colors"
         >
           <RefreshCw
             className={`h-4 w-4 ${
-              isRefreshing ? "animate-spin text-[#D74D0D]" : ""
+              isRefreshing ? "animate-spin text-[#D74D0D] dark:text-[#FF6B2B]" : ""
             }`}
           />
         </button>
@@ -162,30 +162,30 @@ export default function AktivitasPage() {
 
       {/* Action Error Banner */}
       {actionError && (
-        <div className="p-3 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 flex items-start gap-2.5 text-[#C92121] text-xs font-medium">
-          <AlertCircle className="h-4 w-4 text-[#C92121] shrink-0 mt-0.5" />
+        <div className="p-3 rounded-xl bg-[#C92121]/10 dark:bg-[#EF4444]/15 border border-[#C92121]/30 dark:border-[#EF4444]/30 flex items-start gap-2.5 text-[#C92121] dark:text-[#EF4444] text-xs font-medium">
+          <AlertCircle className="h-4 w-4 text-[#C92121] dark:text-[#EF4444] shrink-0 mt-0.5" />
           <span className="leading-tight">{actionError}</span>
         </div>
       )}
 
       {/* State: User has NOT clocked in today */}
       {!isLoading && !hasClockedInToday && (
-        <div className="bg-white border border-[#060057]/10 rounded-2xl p-6 text-center shadow-xs flex flex-col items-center gap-3">
-          <div className="h-12 w-12 rounded-2xl bg-[#E9B501]/20 border border-[#E9B501]/40 flex items-center justify-center text-[#D74D0D]">
+        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-6 text-center shadow-xs flex flex-col items-center gap-3 transition-colors duration-150">
+          <div className="h-12 w-12 rounded-2xl bg-[#E9B501]/20 dark:bg-[#E9B501]/15 border border-[#E9B501]/40 dark:border-[#E9B501]/30 flex items-center justify-center text-[#D74D0D] dark:text-[#FF6B2B]">
             <Clock className="h-6 w-6" />
           </div>
           <div>
-            <h2 className="text-sm font-bold text-[#060057]">
+            <h2 className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1]">
               Belum Clock-In Hari Ini
             </h2>
-            <p className="text-xs text-[#060057]/60 mt-1 max-w-[260px]">
+            <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 mt-1 max-w-[260px]">
               Lakukan Clock-In terlebih dahulu di tab Absen agar tugas harian
               dapat tercatat ke sesi kehadiran Anda.
             </p>
           </div>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#D74D0D] hover:bg-[#b83e08] active:scale-[0.99] text-white text-xs font-bold rounded-xl transition shadow-xs"
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#D74D0D] hover:bg-[#b83e08] dark:bg-[#FF6B2B] dark:hover:bg-[#e05517] active:scale-[0.99] text-white text-xs font-bold rounded-xl transition shadow-xs"
           >
             <span>Ke Halaman Absen</span>
             <ArrowRight className="h-3.5 w-3.5" />
@@ -198,37 +198,37 @@ export default function AktivitasPage() {
         <>
           {/* Mini Task Stats Counter */}
           <div className="grid grid-cols-3 gap-2">
-            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#E9B501] shrink-0" />
+            <div className="bg-white dark:bg-[#141926] p-2.5 rounded-xl border border-[#060057]/10 dark:border-white/10 shadow-xs flex items-center gap-2 transition-colors duration-150">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#E9B501] dark:bg-[#FCD34D] shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-[#060057]/55 font-medium">
+                <span className="text-[10px] text-[#060057]/55 dark:text-[#F6F8F1]/55 font-medium">
                   Dalam Proses
                 </span>
-                <span className="text-xs font-extrabold text-[#060057]">
+                <span className="text-xs font-extrabold text-[#060057] dark:text-[#F6F8F1]">
                   {inProgressCount} Tugas
                 </span>
               </div>
             </div>
 
-            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
+            <div className="bg-white dark:bg-[#141926] p-2.5 rounded-xl border border-[#060057]/10 dark:border-white/10 shadow-xs flex items-center gap-2 transition-colors duration-150">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-[#060057]/55 font-medium">
+                <span className="text-[10px] text-[#060057]/55 dark:text-[#F6F8F1]/55 font-medium">
                   Selesai
                 </span>
-                <span className="text-xs font-extrabold text-[#060057]">
+                <span className="text-xs font-extrabold text-[#060057] dark:text-[#F6F8F1]">
                   {completedCount} Tugas
                 </span>
               </div>
             </div>
 
-            <div className="bg-white p-2.5 rounded-xl border border-[#060057]/10 shadow-xs flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#C92121] shrink-0" />
+            <div className="bg-white dark:bg-[#141926] p-2.5 rounded-xl border border-[#060057]/10 dark:border-white/10 shadow-xs flex items-center gap-2 transition-colors duration-150">
+              <span className="h-2.5 w-2.5 rounded-full bg-[#C92121] dark:bg-[#EF4444] shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[10px] text-[#060057]/55 font-medium">
+                <span className="text-[10px] text-[#060057]/55 dark:text-[#F6F8F1]/55 font-medium">
                   Terkendala
                 </span>
-                <span className="text-xs font-extrabold text-[#060057]">
+                <span className="text-xs font-extrabold text-[#060057] dark:text-[#F6F8F1]">
                   {blockedCount} Tugas
                 </span>
               </div>
@@ -236,11 +236,11 @@ export default function AktivitasPage() {
           </div>
 
           {/* New Task Input Card */}
-          <section className="bg-white border border-[#060057]/10 rounded-2xl p-4 shadow-xs">
+          <section className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs transition-colors duration-150">
             <form onSubmit={handleCreateTask} className="flex flex-col gap-3">
               <label
                 htmlFor="new-task-desc"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Tambah Pekerjaan / Tugas Baru
               </label>
@@ -252,12 +252,12 @@ export default function AktivitasPage() {
                 onChange={(e) => setTaskInput(e.target.value)}
                 placeholder="Contoh: Selesaikan modul validasi geofence absensi..."
                 required
-                className="w-full text-sm p-3 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                className="w-full text-sm p-3 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
               />
 
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-1.5 text-xs">
-                  <span className="text-[11px] text-[#060057]/60 font-semibold">
+                  <span className="text-[11px] text-[#060057]/60 dark:text-[#F6F8F1]/60 font-semibold">
                     Status:
                   </span>
                   <select
@@ -265,7 +265,7 @@ export default function AktivitasPage() {
                     onChange={(e) =>
                       setSelectedStatus(e.target.value as TaskStatus)
                     }
-                    className="text-xs font-semibold py-1.5 px-2.5 border border-[#060057]/15 rounded-lg bg-[#F6F8F1] text-[#060057] focus:outline-none"
+                    className="text-xs font-semibold py-1.5 px-2.5 border border-[#060057]/15 dark:border-white/10 rounded-lg bg-[#F6F8F1] dark:bg-[#0B0E17] text-[#060057] dark:text-[#F6F8F1] focus:outline-none"
                   >
                     <option value="IN_PROGRESS">Dalam Proses</option>
                     <option value="COMPLETED">Selesai</option>
@@ -276,7 +276,7 @@ export default function AktivitasPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting || !taskInput.trim()}
-                  className="h-10 px-4 bg-[#D74D0D] hover:bg-[#b83e08] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-xs shadow-[#D74D0D]/20 transition"
+                  className="h-10 px-4 bg-[#D74D0D] hover:bg-[#b83e08] dark:bg-[#FF6B2B] dark:hover:bg-[#e05517] active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 shadow-xs shadow-[#D74D0D]/20 transition"
                 >
                   {isSubmitting ? (
                     <RefreshCw className="h-3.5 w-3.5 animate-spin" />
@@ -293,19 +293,19 @@ export default function AktivitasPage() {
 
           {/* Task List */}
           {isLoading ? (
-            <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs">
-              <RefreshCw className="h-5 w-5 text-[#D74D0D] animate-spin mx-auto mb-2" />
-              <p className="text-xs text-[#060057]/60 font-medium">
+            <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs">
+              <RefreshCw className="h-5 w-5 text-[#D74D0D] dark:text-[#FF6B2B] animate-spin mx-auto mb-2" />
+              <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 font-medium">
                 Memuat daftar tugas...
               </p>
             </div>
           ) : tasks.length === 0 ? (
-            <div className="bg-white border border-[#060057]/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
-              <ListTodo className="h-8 w-8 text-[#060057]/25 mb-2" />
-              <p className="text-sm font-bold text-[#060057]">
+            <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
+              <ListTodo className="h-8 w-8 text-[#060057]/25 dark:text-[#F6F8F1]/25 mb-2" />
+              <p className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1]">
                 Belum Ada Tugas
               </p>
-              <p className="text-xs text-[#060057]/50 mt-1 max-w-[240px]">
+              <p className="text-xs text-[#060057]/50 dark:text-[#F6F8F1]/50 mt-1 max-w-[240px]">
                 Mulai hari kerja Anda dengan menambahkan rencana tugas di atas.
               </p>
             </div>
@@ -318,12 +318,12 @@ export default function AktivitasPage() {
                 return (
                   <div
                     key={task.id}
-                    className={`bg-white border rounded-2xl p-3.5 shadow-xs flex items-start justify-between gap-3 transition-all ${
+                    className={`border rounded-2xl p-3.5 shadow-xs flex items-start justify-between gap-3 transition-all ${
                       isCompleted
-                        ? "border-emerald-200 bg-emerald-50/15"
+                        ? "border-emerald-200 dark:border-emerald-800/60 bg-emerald-50/15 dark:bg-emerald-950/20"
                         : isBlocked
-                        ? "border-[#C92121]/30 bg-[#C92121]/5"
-                        : "border-[#060057]/10"
+                        ? "border-[#C92121]/30 dark:border-[#EF4444]/30 bg-[#C92121]/5 dark:bg-[#EF4444]/10"
+                        : "bg-white dark:bg-[#141926] border-[#060057]/10 dark:border-white/10"
                     }`}
                   >
                     {/* Left: Checkbox Toggle & Description */}
@@ -332,12 +332,12 @@ export default function AktivitasPage() {
                         type="button"
                         onClick={() => handleToggleStatus(task)}
                         aria-label="Toggle Selesai"
-                        className="mt-0.5 text-[#060057]/30 hover:text-[#D74D0D] transition shrink-0"
+                        className="mt-0.5 text-[#060057]/30 dark:text-[#F6F8F1]/30 hover:text-[#D74D0D] dark:hover:text-[#FF6B2B] transition shrink-0"
                       >
                         {isCompleted ? (
-                          <CheckSquare className="h-5 w-5 text-emerald-600" />
+                          <CheckSquare className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                         ) : (
-                          <Square className="h-5 w-5 text-[#060057]/25 hover:text-[#060057]/50" />
+                          <Square className="h-5 w-5 text-[#060057]/25 dark:text-[#F6F8F1]/25 hover:text-[#060057]/50 dark:hover:text-[#F6F8F1]/50" />
                         )}
                       </button>
 
@@ -345,8 +345,8 @@ export default function AktivitasPage() {
                         <span
                           className={`text-sm leading-snug break-words ${
                             isCompleted
-                              ? "line-through text-[#060057]/40"
-                              : "text-[#060057] font-semibold"
+                              ? "line-through text-[#060057]/40 dark:text-[#F6F8F1]/40"
+                              : "text-[#060057] dark:text-[#F6F8F1] font-semibold"
                           }`}
                         >
                           {task.task_description}
@@ -361,8 +361,8 @@ export default function AktivitasPage() {
                             }
                             className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "IN_PROGRESS"
-                                ? "bg-[#E9B501]/25 text-[#7d6000] border border-[#E9B501]/50"
-                                : "text-[#060057]/40 hover:text-[#060057]"
+                                ? "bg-[#E9B501]/25 dark:bg-[#E9B501]/15 text-[#7d6000] dark:text-[#FCD34D] border border-[#E9B501]/50 dark:border-[#E9B501]/30"
+                                : "text-[#060057]/40 dark:text-[#F6F8F1]/40 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
                             }`}
                           >
                             Proses
@@ -375,8 +375,8 @@ export default function AktivitasPage() {
                             }
                             className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "COMPLETED"
-                                ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                                : "text-[#060057]/40 hover:text-[#060057]"
+                                ? "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                                : "text-[#060057]/40 dark:text-[#F6F8F1]/40 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
                             }`}
                           >
                             Selesai
@@ -389,8 +389,8 @@ export default function AktivitasPage() {
                             }
                             className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full transition ${
                               task.status === "BLOCKED"
-                                ? "bg-[#C92121]/15 text-[#C92121] border border-[#C92121]/30"
-                                : "text-[#060057]/40 hover:text-[#060057]"
+                                ? "bg-[#C92121]/15 dark:bg-[#EF4444]/20 text-[#C92121] dark:text-[#EF4444] border border-[#C92121]/30 dark:border-[#EF4444]/30"
+                                : "text-[#060057]/40 dark:text-[#F6F8F1]/40 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
                             }`}
                           >
                             Terkendala
@@ -404,7 +404,7 @@ export default function AktivitasPage() {
                       type="button"
                       onClick={() => handleDeleteTask(task.id)}
                       aria-label="Hapus Tugas"
-                      className="p-1 text-[#060057]/25 hover:text-[#C92121] transition shrink-0"
+                      className="p-1 text-[#060057]/25 dark:text-[#F6F8F1]/25 hover:text-[#C92121] dark:hover:text-[#EF4444] transition shrink-0"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

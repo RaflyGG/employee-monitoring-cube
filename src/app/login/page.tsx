@@ -4,6 +4,7 @@ import { useState, useActionState } from "react";
 import Image from "next/image";
 import { loginAction, registerAction, type AuthState } from "@/actions/auth";
 import { Eye, EyeOff, LogIn, UserPlus, AlertCircle } from "lucide-react";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 export default function LoginPage() {
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -24,8 +25,12 @@ export default function LoginPage() {
   const isPending = mode === "login" ? isLoginPending : isRegisterPending;
 
   return (
-    <div className="min-h-screen bg-[#ECEFE5] flex flex-col justify-center">
-      <div className="max-w-md w-full mx-auto min-h-screen sm:min-h-0 bg-white sm:rounded-3xl flex flex-col justify-center px-6 py-10 shadow-sm border border-[#060057]/10">
+    <div className="min-h-screen bg-[#ECEFE5] dark:bg-[#06080F] flex flex-col justify-center relative p-3 sm:p-4 transition-colors duration-150">
+      <div className="absolute top-4 right-4 z-20">
+        <ThemeToggle />
+      </div>
+
+      <div className="max-w-md w-full mx-auto min-h-screen sm:min-h-0 bg-white dark:bg-[#141926] sm:rounded-3xl flex flex-col justify-center px-6 py-10 shadow-sm border border-[#060057]/10 dark:border-white/10 relative transition-colors duration-150">
         {/* CUBE Studio Brand Header */}
         <div className="flex flex-col items-center text-center mb-7">
           <div className="mb-3">
@@ -40,23 +45,23 @@ export default function LoginPage() {
             />
           </div>
 
-          <span className="text-xs font-bold uppercase tracking-wider text-[#D74D0D] mt-0.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#D74D0D] dark:text-[#FF6B2B] mt-0.5">
             Employee Monitoring
           </span>
-          <p className="text-xs text-[#060057]/60 mt-1">
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 mt-1">
             Presensi akurat, transparan & anti-kecurangan
           </p>
         </div>
 
         {/* Tab Switcher: Login vs Register */}
-        <div className="flex bg-[#F6F8F1] p-1 rounded-xl mb-6 border border-[#060057]/10">
+        <div className="flex bg-[#F6F8F1] dark:bg-[#0B0E17] p-1 rounded-xl mb-6 border border-[#060057]/10 dark:border-white/10">
           <button
             type="button"
             onClick={() => setMode("login")}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               mode === "login"
-                ? "bg-white text-[#060057] shadow-xs"
-                : "text-[#060057]/50 hover:text-[#060057]"
+                ? "bg-white dark:bg-[#1B2234] text-[#060057] dark:text-[#F6F8F1] shadow-xs"
+                : "text-[#060057]/50 dark:text-[#F6F8F1]/50 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
             }`}
           >
             Masuk (Login)
@@ -66,8 +71,8 @@ export default function LoginPage() {
             onClick={() => setMode("register")}
             className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
               mode === "register"
-                ? "bg-white text-[#D74D0D] shadow-xs"
-                : "text-[#060057]/50 hover:text-[#060057]"
+                ? "bg-white dark:bg-[#1B2234] text-[#D74D0D] dark:text-[#FF6B2B] shadow-xs"
+                : "text-[#060057]/50 dark:text-[#F6F8F1]/50 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
             }`}
           >
             Daftar Akun
@@ -76,20 +81,20 @@ export default function LoginPage() {
 
         {/* Error Alert */}
         {activeError && (
-          <div className="mb-5 p-3 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 flex items-start gap-2.5 text-[#C92121] text-xs font-medium">
-            <AlertCircle className="h-4 w-4 text-[#C92121] shrink-0 mt-0.5" />
+          <div className="mb-5 p-3 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 flex items-start gap-2.5 text-[#C92121] dark:text-[#EF4444] text-xs font-medium">
+            <AlertCircle className="h-4 w-4 text-[#C92121] dark:text-[#EF4444] shrink-0 mt-0.5" />
             <span className="leading-tight">{activeError}</span>
           </div>
         )}
 
         {/* Success Alert */}
         {registerState?.success && registerState?.message && (
-          <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200/80 flex flex-col gap-2 text-emerald-900 text-xs">
+          <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200/80 dark:border-emerald-800 flex flex-col gap-2 text-emerald-900 dark:text-emerald-200 text-xs">
             <span className="font-semibold">{registerState.message}</span>
             <button
               type="button"
               onClick={() => setMode("login")}
-              className="self-start text-[11px] font-bold text-emerald-800 underline"
+              className="self-start text-[11px] font-bold text-emerald-800 dark:text-emerald-300 underline"
             >
               Klik di sini untuk Masuk &rarr;
             </button>
@@ -102,7 +107,7 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="login-email"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Email Perusahaan
               </label>
@@ -113,14 +118,14 @@ export default function LoginPage() {
                 required
                 placeholder="nama@perusahaan.com"
                 autoComplete="email"
-                className="w-full text-sm h-12 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                className="w-full text-sm h-12 px-3.5 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="login-password"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Kata Sandi (Password)
               </label>
@@ -132,12 +137,12 @@ export default function LoginPage() {
                   required
                   placeholder="Masukkan kata sandi"
                   autoComplete="current-password"
-                  className="w-full text-sm h-12 px-3.5 pr-11 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                  className="w-full text-sm h-12 px-3.5 pr-11 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 hover:text-[#060057]"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 dark:text-[#F6F8F1]/40 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -151,7 +156,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="mt-2 w-full h-13 min-h-[52px] bg-[#060057] hover:bg-[#04003d] active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-[#060057]/20 transition-all"
+              className="mt-2 w-full h-13 min-h-[52px] bg-[#060057] dark:bg-[#1B2234] hover:bg-[#04003d] dark:hover:bg-[#232B42] border border-transparent dark:border-white/10 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed text-white dark:text-[#F6F8F1] font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm shadow-[#060057]/20 transition-all"
             >
               {isPending ? (
                 <span>Memverifikasi...</span>
@@ -168,7 +173,7 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-fullname"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Nama Lengkap
               </label>
@@ -178,14 +183,14 @@ export default function LoginPage() {
                 type="text"
                 required
                 placeholder="Contoh: Budi Santoso"
-                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-empid"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 ID Pegawai (NIK / NIP)
               </label>
@@ -195,14 +200,14 @@ export default function LoginPage() {
                 type="text"
                 required
                 placeholder="Contoh: EMP-001"
-                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-email"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Email Perusahaan
               </label>
@@ -212,14 +217,14 @@ export default function LoginPage() {
                 type="email"
                 required
                 placeholder="nama@perusahaan.com"
-                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                className="w-full text-sm h-11 px-3.5 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="reg-password"
-                className="text-xs font-bold text-[#060057]"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1]"
               >
                 Kata Sandi
               </label>
@@ -231,12 +236,12 @@ export default function LoginPage() {
                   required
                   minLength={6}
                   placeholder="Minimal 6 karakter"
-                  className="w-full text-sm h-11 px-3.5 pr-11 border border-[#060057]/15 rounded-xl bg-[#F6F8F1]/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] placeholder:text-[#060057]/35 transition"
+                  className="w-full text-sm h-11 px-3.5 pr-11 border border-[#060057]/15 dark:border-white/10 rounded-xl bg-[#F6F8F1]/40 dark:bg-[#0B0E17]/60 focus:bg-white dark:focus:bg-[#0B0E17] focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/20 focus:border-[#D74D0D] text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/35 dark:placeholder:text-[#F6F8F1]/30 transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 hover:text-[#060057]"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#060057]/40 dark:text-[#F6F8F1]/40 hover:text-[#060057] dark:hover:text-[#F6F8F1]"
                 >
                   {showPassword ? (
                     <EyeOff className="h-4 w-4" />
@@ -265,7 +270,7 @@ export default function LoginPage() {
         )}
 
         <div className="mt-8 text-center">
-          <p className="text-[11px] text-[#060057]/45 font-medium">
+          <p className="text-[11px] text-[#060057]/45 dark:text-[#F6F8F1]/45 font-medium">
             CUBE Ecosystem &bull; Internal Company Only
           </p>
         </div>

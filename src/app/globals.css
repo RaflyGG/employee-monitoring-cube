@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --canvas: #f6f8f1;
   --brand-orange: #d74d0d;
@@ -8,12 +10,20 @@
   --brand-navy: #060057;
 }
 
+.dark {
+  --canvas: #0b0e17;
+  --brand-orange: #ff6b2b;
+  --brand-red: #ef4444;
+  --brand-gold: #fcd34d;
+  --brand-navy: #3b82f6;
+}
+
 @theme {
-  --color-canvas: #f6f8f1;
-  --color-brand-orange: #d74d0d;
-  --color-brand-red: #c92121;
-  --color-brand-gold: #e9b501;
-  --color-brand-navy: #060057;
+  --color-canvas: var(--canvas);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-red: var(--brand-red);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-navy: var(--brand-navy);
 }
 
 body {
@@ -21,3 +31,4 @@ body {
   color: #1a1a1a;
   font-family: Arial, Helvetica, sans-serif;
 }
+

@@ -155,10 +155,10 @@ export function OfficesManagerView({
     <div className="flex flex-col gap-5">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-xl font-black text-[#060057] tracking-tight">
+          <h1 className="text-xl font-black text-[#060057] dark:text-[#F6F8F1] tracking-tight">
             Pengaturan Kantor & Geofence
           </h1>
-          <p className="text-xs text-[#060057]/60 mt-0.5">
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 mt-0.5">
             Tentukan titik koordinat GPS kantor, radius aman presensi, dan jam kerja
           </p>
         </div>
@@ -167,7 +167,7 @@ export function OfficesManagerView({
           <button
             type="button"
             onClick={prepareNewOffice}
-            className="h-9 px-3.5 rounded-xl bg-[#D74D0D] hover:bg-[#b83f09] text-white text-xs font-bold flex items-center gap-1.5 self-start sm:self-auto transition-colors"
+            className="h-9 px-3.5 rounded-xl bg-[#D74D0D] hover:bg-[#b83f09] dark:bg-[#FF6B2B] dark:hover:bg-[#e05517] text-white text-xs font-bold flex items-center gap-1.5 self-start sm:self-auto transition-colors"
           >
             <Plus className="h-4 w-4" />
             <span>Tambah Kantor</span>
@@ -176,7 +176,7 @@ export function OfficesManagerView({
       </div>
 
       {!isHrAdmin && (
-        <div className="p-3.5 rounded-xl bg-[#E9B501]/20 border border-[#E9B501]/60 text-xs font-semibold text-[#060057]">
+        <div className="p-3.5 rounded-xl bg-[#E9B501]/20 dark:bg-[#E9B501]/15 border border-[#E9B501]/60 dark:border-[#E9B501]/40 text-xs font-semibold text-[#060057] dark:text-[#FCD34D]">
           Mode baca saja: hanya role HR Admin yang dapat mengubah titik kantor atau jam kerja.
         </div>
       )}
@@ -185,8 +185,8 @@ export function OfficesManagerView({
         <div
           className={`p-3.5 rounded-xl border text-xs font-semibold flex items-center gap-2 ${
             feedback.type === "success"
-              ? "bg-emerald-50 border-emerald-200 text-emerald-800"
-              : "bg-[#C92121]/10 border-[#C92121]/30 text-[#C92121]"
+              ? "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300"
+              : "bg-[#C92121]/10 dark:bg-[#EF4444]/15 border-[#C92121]/30 dark:border-[#EF4444]/30 text-[#C92121] dark:text-[#EF4444]"
           }`}
         >
           {feedback.type === "success" ? (
@@ -200,15 +200,15 @@ export function OfficesManagerView({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Office List */}
-        <div className="bg-white border border-[#060057]/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-[#060057]/55">
+        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3 transition-colors duration-150">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#060057]/55 dark:text-[#F6F8F1]/60">
             Daftar Kantor ({offices.length})
           </h2>
 
           {offices.length === 0 ? (
-            <div className="p-6 text-center bg-[#F6F8F1] rounded-xl border border-dashed border-[#060057]/15">
-              <Building2 className="h-6 w-6 text-[#060057]/30 mx-auto mb-2" />
-              <p className="text-xs font-semibold text-[#060057]/70">
+            <div className="p-6 text-center bg-[#F6F8F1] dark:bg-[#0B0E17] rounded-xl border border-dashed border-[#060057]/15 dark:border-white/15">
+              <Building2 className="h-6 w-6 text-[#060057]/30 dark:text-[#F6F8F1]/30 mx-auto mb-2" />
+              <p className="text-xs font-semibold text-[#060057]/70 dark:text-[#F6F8F1]/70">
                 Belum ada kantor di database. Simpan form di samping untuk membuat kantor pertama.
               </p>
             </div>
@@ -223,14 +223,14 @@ export function OfficesManagerView({
                     onClick={() => selectOffice(office)}
                     className={`text-left p-3 rounded-xl border transition-all ${
                       selected
-                        ? "bg-[#060057] text-white border-[#060057]"
-                        : "bg-[#F6F8F1] text-[#060057] border-[#060057]/10 hover:border-[#060057]/30"
+                        ? "bg-[#060057] dark:bg-[#1B2234] text-white dark:text-[#F6F8F1] border-[#060057] dark:border-white/20"
+                        : "bg-[#F6F8F1] dark:bg-[#0B0E17] text-[#060057] dark:text-[#F6F8F1] border-[#060057]/10 dark:border-white/10 hover:border-[#060057]/30 dark:hover:border-white/20"
                     }`}
                   >
                     <p className="text-sm font-bold">{office.name}</p>
                     <p
                       className={`text-[11px] font-mono mt-1 ${
-                        selected ? "text-white/80" : "text-[#060057]/60"
+                        selected ? "text-white/80 dark:text-[#F6F8F1]/80" : "text-[#060057]/60 dark:text-[#F6F8F1]/60"
                       }`}
                     >
                       Radius {office.radius_meters}m • {office.work_start_time.slice(0, 5)} - {office.work_end_time.slice(0, 5)} WIB
@@ -245,11 +245,11 @@ export function OfficesManagerView({
         {/* Office Form */}
         <form
           onSubmit={handleSubmit}
-          className="lg:col-span-2 bg-white border border-[#060057]/10 rounded-2xl p-5 shadow-xs flex flex-col gap-4"
+          className="lg:col-span-2 bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-5 shadow-xs flex flex-col gap-4 transition-colors duration-150"
         >
-          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#060057]/10">
-            <h2 className="text-sm font-bold text-[#060057] flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-[#D74D0D]" />
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-[#060057]/10 dark:border-white/10">
+            <h2 className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1] flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-[#D74D0D] dark:text-[#FF6B2B]" />
               <span>
                 {editingId ? "Edit Konfigurasi Kantor" : "Tambah Kantor Baru"}
               </span>
@@ -260,9 +260,9 @@ export function OfficesManagerView({
                 type="button"
                 onClick={fillWithCurrentGps}
                 disabled={isLocating}
-                className="px-3 py-1.5 rounded-xl bg-[#E9B501]/20 border border-[#E9B501]/60 text-xs font-bold text-[#060057] hover:bg-[#E9B501]/30 flex items-center gap-1.5 transition-colors"
+                className="px-3 py-1.5 rounded-xl bg-[#E9B501]/20 dark:bg-[#E9B501]/15 border border-[#E9B501]/60 dark:border-[#E9B501]/40 text-xs font-bold text-[#060057] dark:text-[#FCD34D] hover:bg-[#E9B501]/30 flex items-center gap-1.5 transition-colors"
               >
-                <Crosshair className="h-3.5 w-3.5 text-[#D74D0D]" />
+                <Crosshair className="h-3.5 w-3.5 text-[#D74D0D] dark:text-[#FF6B2B]" />
                 <span>
                   {isLocating ? "Mengambil GPS..." : "Ambil GPS Lokasi Saya"}
                 </span>
@@ -271,7 +271,7 @@ export function OfficesManagerView({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#060057] mb-1.5">
+            <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
               Nama Kantor
             </label>
             <input
@@ -281,13 +281,13 @@ export function OfficesManagerView({
               disabled={!isHrAdmin}
               required
               placeholder="Kantor Utama Cube Studio"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] border border-[#060057]/15 text-sm font-medium text-[#060057] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 text-sm font-medium text-[#060057] dark:text-[#F6F8F1] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#060057] mb-1.5">
+              <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
                 Latitude
               </label>
               <input
@@ -298,12 +298,12 @@ export function OfficesManagerView({
                 disabled={!isHrAdmin}
                 required
                 placeholder="-6.9703801"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] border border-[#060057]/15 text-sm font-mono text-[#060057] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 text-sm font-mono text-[#060057] dark:text-[#F6F8F1] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#060057] mb-1.5">
+              <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
                 Longitude
               </label>
               <input
@@ -314,12 +314,12 @@ export function OfficesManagerView({
                 disabled={!isHrAdmin}
                 required
                 placeholder="107.6302057"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] border border-[#060057]/15 text-sm font-mono text-[#060057] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 text-sm font-mono text-[#060057] dark:text-[#F6F8F1] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#060057] mb-1.5">
+              <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
                 Radius Aman (Meter)
               </label>
               <input
@@ -330,42 +330,42 @@ export function OfficesManagerView({
                 onChange={(e) => setRadiusMeters(e.target.value)}
                 disabled={!isHrAdmin}
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] border border-[#060057]/15 text-sm font-mono text-[#060057] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 text-sm font-mono text-[#060057] dark:text-[#F6F8F1] disabled:opacity-60 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-bold text-[#060057] mb-1.5">
+              <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
                 Jam Masuk (Batas Tepat Waktu WIB)
               </label>
-              <div className="flex items-center bg-[#F6F8F1] border border-[#060057]/15 rounded-xl px-3.5 py-2.5">
-                <Clock className="h-4 w-4 text-[#D74D0D] mr-2 shrink-0" />
+              <div className="flex items-center bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 rounded-xl px-3.5 py-2.5">
+                <Clock className="h-4 w-4 text-[#D74D0D] dark:text-[#FF6B2B] mr-2 shrink-0" />
                 <input
                   type="time"
                   value={workStart}
                   onChange={(e) => setWorkStart(e.target.value)}
                   disabled={!isHrAdmin}
                   required
-                  className="w-full text-sm font-mono font-bold text-[#060057] bg-transparent focus:outline-none"
+                  className="w-full text-sm font-mono font-bold text-[#060057] dark:text-[#F6F8F1] bg-transparent focus:outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#060057] mb-1.5">
+              <label className="block text-xs font-bold text-[#060057] dark:text-[#F6F8F1] mb-1.5">
                 Jam Pulang (WIB)
               </label>
-              <div className="flex items-center bg-[#F6F8F1] border border-[#060057]/15 rounded-xl px-3.5 py-2.5">
-                <Clock className="h-4 w-4 text-[#060057]/60 mr-2 shrink-0" />
+              <div className="flex items-center bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/15 dark:border-white/10 rounded-xl px-3.5 py-2.5">
+                <Clock className="h-4 w-4 text-[#060057]/60 dark:text-[#F6F8F1]/60 mr-2 shrink-0" />
                 <input
                   type="time"
                   value={workEnd}
                   onChange={(e) => setWorkEnd(e.target.value)}
                   disabled={!isHrAdmin}
                   required
-                  className="w-full text-sm font-mono font-bold text-[#060057] bg-transparent focus:outline-none"
+                  className="w-full text-sm font-mono font-bold text-[#060057] dark:text-[#F6F8F1] bg-transparent focus:outline-none"
                 />
               </div>
             </div>
@@ -377,7 +377,7 @@ export function OfficesManagerView({
                 href={`https://www.google.com/maps?q=${latitude},${longitude}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-bold text-[#060057] hover:text-[#D74D0D] inline-flex items-center gap-1.5 underline"
+                className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1] hover:text-[#D74D0D] dark:hover:text-[#FF6B2B] inline-flex items-center gap-1.5 underline"
               >
                 <span>Cek Titik di Google Maps</span>
                 <ExternalLink className="h-3.5 w-3.5" />
@@ -390,7 +390,7 @@ export function OfficesManagerView({
               <button
                 type="submit"
                 disabled={isPending}
-                className="px-5 py-2.5 rounded-xl bg-[#060057] hover:bg-[#060057]/90 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"
+                className="px-5 py-2.5 rounded-xl bg-[#060057] dark:bg-[#1B2234] border border-transparent dark:border-white/10 hover:bg-[#060057]/90 dark:hover:bg-[#232B42] disabled:opacity-50 text-white dark:text-[#F6F8F1] text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"
               >
                 <Save className="h-4 w-4" />
                 <span>{isPending ? "Menyimpan..." : "Simpan Konfigurasi"}</span>

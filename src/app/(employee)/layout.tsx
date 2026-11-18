@@ -18,8 +18,8 @@ export default async function EmployeeLayout({
     profile?.role === "HR_ADMIN" || profile?.role === "SUPERVISOR";
 
   return (
-    <div className="min-h-screen bg-[#ECEFE5] sm:py-0">
-      <div className="max-w-md mx-auto min-h-screen bg-[#F6F8F1] flex flex-col shadow-xs border-x border-[#060057]/10 relative">
+    <div className="min-h-screen bg-[#ECEFE5] dark:bg-[#06080F] sm:py-0 transition-colors duration-150">
+      <div className="max-w-md mx-auto min-h-screen bg-[#F6F8F1] dark:bg-[#0B0E17] flex flex-col shadow-xs border-x border-[#060057]/10 dark:border-white/10 relative">
         <Header userName={userName} companyName="CUBE" isAdmin={isAdmin} />
         <main
           className="flex-1 flex flex-col px-4 py-4"

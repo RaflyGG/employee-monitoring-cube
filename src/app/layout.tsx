@@ -19,14 +19,31 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const themeInitScript = `
+  (function() {
+    try {
+      var stored = localStorage.getItem('cube-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="id" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-[#F6F8F1] text-[#060057] font-sans selection:bg-[#D74D0D]/15 selection:text-[#060057]">
+    <html lang="id" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-full flex flex-col bg-[#F6F8F1] dark:bg-[#0B0E17] text-[#060057] dark:text-[#F6F8F1] font-sans selection:bg-[#D74D0D]/15 dark:selection:bg-[#FF6B2B]/25 selection:text-[#060057] dark:selection:text-[#F6F8F1] transition-colors duration-150">
         {children}
       </body>
     </html>

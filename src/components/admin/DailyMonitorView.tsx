@@ -108,36 +108,36 @@ export function DailyMonitorView({
       label: "Pegawai Aktif",
       value: data.summary.totalActiveEmployees,
       icon: Users,
-      accent: "text-[#060057]",
-      bg: "bg-white",
+      accent: "text-[#060057] dark:text-[#F6F8F1]",
+      bg: "bg-white dark:bg-[#141926]",
     },
     {
       label: "Sudah Absen",
       value: data.summary.presentCount,
       icon: CheckCircle2,
-      accent: "text-emerald-600",
-      bg: "bg-white",
+      accent: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-white dark:bg-[#141926]",
     },
     {
       label: "Terlambat",
       value: data.summary.lateCount,
       icon: Clock,
-      accent: "text-[#D74D0D]",
-      bg: "bg-white",
+      accent: "text-[#D74D0D] dark:text-[#FF6B2B]",
+      bg: "bg-white dark:bg-[#141926]",
     },
     {
       label: "Luar Area",
       value: data.summary.outOfAreaCount,
       icon: AlertTriangle,
-      accent: "text-[#C92121]",
-      bg: "bg-white",
+      accent: "text-[#C92121] dark:text-[#EF4444]",
+      bg: "bg-white dark:bg-[#141926]",
     },
     {
       label: "Belum Absen",
       value: data.summary.absentCount,
       icon: UserX,
-      accent: "text-[#060057]/60",
-      bg: "bg-white",
+      accent: "text-[#060057]/60 dark:text-[#F6F8F1]/60",
+      bg: "bg-white dark:bg-[#141926]",
     },
   ];
 
@@ -146,23 +146,23 @@ export function DailyMonitorView({
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-xl font-black text-[#060057] tracking-tight">
+          <h1 className="text-xl font-black text-[#060057] dark:text-[#F6F8F1] tracking-tight">
             Monitoring Kehadiran Harian
           </h1>
-          <p className="text-xs text-[#060057]/60 mt-0.5">
+          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 mt-0.5">
             {formatDateIndo(data.date)}
             {data.office ? ` • ${data.office.name} (Radius ${data.office.radius_meters}m)` : ""}
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="relative flex items-center bg-white border border-[#060057]/15 rounded-xl px-3 py-2">
-            <Calendar className="h-4 w-4 text-[#D74D0D] mr-2 shrink-0" />
+          <div className="relative flex items-center bg-white dark:bg-[#141926] border border-[#060057]/15 dark:border-white/10 rounded-xl px-3 py-2">
+            <Calendar className="h-4 w-4 text-[#D74D0D] dark:text-[#FF6B2B] mr-2 shrink-0" />
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => handleDateChange(e.target.value)}
-              className="text-xs font-bold text-[#060057] bg-transparent focus:outline-none"
+              className="text-xs font-bold text-[#060057] dark:text-[#F6F8F1] bg-transparent focus:outline-none"
             />
           </div>
           <button
@@ -170,11 +170,11 @@ export function DailyMonitorView({
             onClick={() => reloadForDate(selectedDate)}
             disabled={isPending}
             aria-label="Refresh Data"
-            className="h-9 px-3 rounded-xl bg-white border border-[#060057]/15 text-xs font-bold text-[#060057] hover:bg-[#F6F8F1] disabled:opacity-50 flex items-center gap-1.5 transition-colors"
+            className="h-9 px-3 rounded-xl bg-white dark:bg-[#141926] border border-[#060057]/15 dark:border-white/10 text-xs font-bold text-[#060057] dark:text-[#F6F8F1] hover:bg-[#F6F8F1] dark:hover:bg-[#1B2234] disabled:opacity-50 flex items-center gap-1.5 transition-colors"
           >
             <RefreshCw
               className={`h-3.5 w-3.5 ${
-                isPending ? "animate-spin text-[#D74D0D]" : ""
+                isPending ? "animate-spin text-[#D74D0D] dark:text-[#FF6B2B]" : ""
               }`}
             />
             <span className="hidden sm:inline">Refresh</span>
@@ -184,7 +184,7 @@ export function DailyMonitorView({
 
       {/* Error Banner */}
       {data.error && (
-        <div className="p-3.5 rounded-xl bg-[#C92121]/10 border border-[#C92121]/30 text-xs font-semibold text-[#C92121]">
+        <div className="p-3.5 rounded-xl bg-[#C92121]/10 dark:bg-[#EF4444]/15 border border-[#C92121]/30 dark:border-[#EF4444]/30 text-xs font-semibold text-[#C92121] dark:text-[#EF4444]">
           {data.error}
         </div>
       )}
@@ -196,10 +196,10 @@ export function DailyMonitorView({
           return (
             <div
               key={card.label}
-              className={`${card.bg} border border-[#060057]/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between`}
+              className={`${card.bg} border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs flex flex-col justify-between transition-colors duration-150`}
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#060057]/55">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#060057]/55 dark:text-[#F6F8F1]/60">
                   {card.label}
                 </span>
                 <Icon className={`h-4 w-4 ${card.accent}`} />
@@ -213,15 +213,15 @@ export function DailyMonitorView({
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="bg-white border border-[#060057]/10 rounded-2xl p-3.5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-3.5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3 transition-colors duration-150">
         <div className="relative flex-1 max-w-sm">
-          <Search className="h-4 w-4 text-[#060057]/40 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="h-4 w-4 text-[#060057]/40 dark:text-[#F6F8F1]/40 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari nama, ID pegawai, atau divisi..."
-            className="w-full pl-9 pr-3 py-2 text-xs font-medium bg-[#F6F8F1] border border-[#060057]/10 rounded-xl text-[#060057] placeholder:text-[#060057]/40 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
+            className="w-full pl-9 pr-3 py-2 text-xs font-medium bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/10 dark:border-white/10 rounded-xl text-[#060057] dark:text-[#F6F8F1] placeholder:text-[#060057]/40 dark:placeholder:text-[#F6F8F1]/40 focus:outline-none focus:ring-2 focus:ring-[#D74D0D]/30"
           />
         </div>
 
@@ -235,8 +235,8 @@ export function DailyMonitorView({
                 onClick={() => setActiveFilter(opt.key)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors ${
                   active
-                    ? "bg-[#D74D0D] text-white"
-                    : "bg-[#F6F8F1] text-[#060057]/70 hover:text-[#060057] border border-[#060057]/10"
+                    ? "bg-[#D74D0D] dark:bg-[#FF6B2B] text-white"
+                    : "bg-[#F6F8F1] dark:bg-[#0B0E17] text-[#060057]/70 dark:text-[#F6F8F1]/70 hover:text-[#060057] dark:hover:text-[#F6F8F1] border border-[#060057]/10 dark:border-white/10"
                 }`}
               >
                 {opt.label}
@@ -247,19 +247,19 @@ export function DailyMonitorView({
       </div>
 
       {/* Employee Attendance List */}
-      <div className="bg-white border border-[#060057]/10 rounded-2xl shadow-xs overflow-hidden">
+      <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl shadow-xs overflow-hidden transition-colors duration-150">
         {filteredRows.length === 0 ? (
           <div className="p-10 text-center flex flex-col items-center gap-2">
-            <Users className="h-8 w-8 text-[#060057]/25" />
-            <p className="text-sm font-bold text-[#060057]">
+            <Users className="h-8 w-8 text-[#060057]/25 dark:text-[#F6F8F1]/25" />
+            <p className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1]">
               Tidak ada data yang cocok
             </p>
-            <p className="text-xs text-[#060057]/55">
+            <p className="text-xs text-[#060057]/55 dark:text-[#F6F8F1]/55">
               Ubah kata kunci pencarian atau filter status di atas.
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-[#060057]/10">
+          <div className="divide-y divide-[#060057]/10 dark:divide-white/10">
             {filteredRows.map(({ profile, attendance, tasks }) => {
               const isExpanded = expandedUserIds.has(profile.id);
               const mapsUrl =
@@ -268,16 +268,16 @@ export function DailyMonitorView({
                   : null;
 
               return (
-                <div key={profile.id} className="p-4 hover:bg-[#F6F8F1]/40 transition-colors">
+                <div key={profile.id} className="p-4 hover:bg-[#F6F8F1]/40 dark:hover:bg-[#1B2234]/50 transition-colors">
                   <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
                     {/* Employee Info */}
                     <div className="flex items-start justify-between gap-3 min-w-0 lg:w-64">
                       <div className="min-w-0">
-                        <p className="text-sm font-bold text-[#060057] truncate">
+                        <p className="text-sm font-bold text-[#060057] dark:text-[#F6F8F1] truncate">
                           {profile.full_name}
                         </p>
-                        <p className="text-[11px] font-medium text-[#060057]/60 mt-0.5">
-                          <span className="font-mono font-semibold text-[#D74D0D]">
+                        <p className="text-[11px] font-medium text-[#060057]/60 dark:text-[#F6F8F1]/60 mt-0.5">
+                          <span className="font-mono font-semibold text-[#D74D0D] dark:text-[#FF6B2B]">
                             {profile.employee_id}
                           </span>
                           {profile.department ? ` • ${profile.department}` : ""}
@@ -291,26 +291,26 @@ export function DailyMonitorView({
                     {/* Timestamps & Duration */}
                     <div className="grid grid-cols-3 gap-2 sm:gap-4 text-xs lg:flex lg:items-center lg:gap-6">
                       <div>
-                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45">
+                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45 dark:text-[#F6F8F1]/45">
                           Masuk
                         </span>
-                        <span className="font-mono font-bold text-[#060057]">
+                        <span className="font-mono font-bold text-[#060057] dark:text-[#F6F8F1]">
                           {formatTimeWIB(attendance?.clock_in)}
                         </span>
                       </div>
                       <div>
-                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45">
+                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45 dark:text-[#F6F8F1]/45">
                           Keluar
                         </span>
-                        <span className="font-mono font-bold text-[#060057]">
+                        <span className="font-mono font-bold text-[#060057] dark:text-[#F6F8F1]">
                           {formatTimeWIB(attendance?.clock_out)}
                         </span>
                       </div>
                       <div>
-                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45">
+                        <span className="block text-[10px] font-bold uppercase text-[#060057]/45 dark:text-[#F6F8F1]/45">
                           Durasi
                         </span>
-                        <span className="font-mono font-bold text-[#060057]/80">
+                        <span className="font-mono font-bold text-[#060057]/80 dark:text-[#F6F8F1]/80">
                           {calculateDurationLabel(
                             attendance?.clock_in,
                             attendance?.clock_out
@@ -333,7 +333,7 @@ export function DailyMonitorView({
                             href={mapsUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold border border-[#060057]/15 bg-white text-[#060057] hover:border-[#D74D0D]/50 hover:text-[#D74D0D] transition-colors"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold border border-[#060057]/15 dark:border-white/10 bg-white dark:bg-[#0B0E17] text-[#060057] dark:text-[#F6F8F1] hover:border-[#D74D0D]/50 dark:hover:border-[#FF6B2B]/50 hover:text-[#D74D0D] dark:hover:text-[#FF6B2B] transition-colors"
                           >
                             <MapPin className="h-3 w-3" />
                             <span>Peta</span>
@@ -346,9 +346,9 @@ export function DailyMonitorView({
                         <button
                           type="button"
                           onClick={() => toggleExpand(profile.id)}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-[#F6F8F1] border border-[#060057]/10 text-[#060057] hover:border-[#060057]/30 transition-colors"
+                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/10 dark:border-white/10 text-[#060057] dark:text-[#F6F8F1] hover:border-[#060057]/30 dark:hover:border-white/20 transition-colors"
                         >
-                          <ListTodo className="h-3.5 w-3.5 text-[#D74D0D]" />
+                          <ListTodo className="h-3.5 w-3.5 text-[#D74D0D] dark:text-[#FF6B2B]" />
                           <span>{tasks.length} Tugas</span>
                           {isExpanded ? (
                             <ChevronUp className="h-3.5 w-3.5" />
@@ -362,16 +362,16 @@ export function DailyMonitorView({
 
                   {/* Expanded Detail: Notes & Tasks */}
                   {isExpanded && attendance && (
-                    <div className="mt-3 pt-3 border-t border-dashed border-[#060057]/10 flex flex-col gap-2">
+                    <div className="mt-3 pt-3 border-t border-dashed border-[#060057]/10 dark:border-white/10 flex flex-col gap-2">
                       {attendance.notes && (
-                        <p className="text-xs text-[#060057]/75 bg-[#F6F8F1] px-3 py-2 rounded-xl border border-[#060057]/10">
-                          <span className="font-bold text-[#060057]">Catatan: </span>
+                        <p className="text-xs text-[#060057]/75 dark:text-[#F6F8F1]/75 bg-[#F6F8F1] dark:bg-[#0B0E17] px-3 py-2 rounded-xl border border-[#060057]/10 dark:border-white/10">
+                          <span className="font-bold text-[#060057] dark:text-[#F6F8F1]">Catatan: </span>
                           {attendance.notes}
                         </p>
                       )}
 
                       {tasks.length === 0 ? (
-                        <p className="text-xs text-[#060057]/50 italic">
+                        <p className="text-xs text-[#060057]/50 dark:text-[#F6F8F1]/50 italic">
                           Pegawai ini belum mencatat aktivitas harian pada tanggal ini.
                         </p>
                       ) : (
@@ -379,9 +379,9 @@ export function DailyMonitorView({
                           {tasks.map((task) => (
                             <li
                               key={task.id}
-                              className="flex items-start justify-between gap-2 bg-[#F6F8F1] border border-[#060057]/10 rounded-xl px-3 py-2"
+                              className="flex items-start justify-between gap-2 bg-[#F6F8F1] dark:bg-[#0B0E17] border border-[#060057]/10 dark:border-white/10 rounded-xl px-3 py-2"
                             >
-                              <span className="text-xs font-medium text-[#060057] leading-snug">
+                              <span className="text-xs font-medium text-[#060057] dark:text-[#F6F8F1] leading-snug">
                                 {task.task_description}
                               </span>
                               <TaskStatusBadge status={task.status} />
