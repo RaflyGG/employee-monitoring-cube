@@ -374,11 +374,10 @@ export default function AttendancePage() {
 
       {/* 3. Action Section by Attendance State */}
       {isLoadingRecord ? (
-        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-6 text-center shadow-xs">
-          <RefreshCw className="h-5 w-5 text-[#D74D0D] dark:text-[#FF6B2B] animate-spin mx-auto mb-2" />
-          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 font-medium">
-            Memuat data kehadiran hari ini...
-          </p>
+        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3 animate-pulse">
+          <div className="h-4 w-40 bg-[#060057]/10 dark:bg-white/10 rounded-md" />
+          <div className="h-16 w-full bg-[#060057]/5 dark:bg-white/5 rounded-xl" />
+          <div className="h-13 w-full bg-[#060057]/15 dark:bg-white/15 rounded-xl" />
         </div>
       ) : (
         <>

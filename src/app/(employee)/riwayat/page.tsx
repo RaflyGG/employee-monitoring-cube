@@ -211,11 +211,23 @@ export default function RiwayatPage() {
 
       {/* List Container */}
       {isLoading ? (
-        <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs">
-          <RefreshCw className="h-5 w-5 text-[#D74D0D] dark:text-[#FF6B2B] animate-spin mx-auto mb-2" />
-          <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 font-medium">
-            Memuat riwayat kehadiran...
-          </p>
+        <div className="flex flex-col gap-3 animate-pulse">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-4 shadow-xs flex flex-col gap-3"
+            >
+              <div className="flex items-center justify-between">
+                <div className="h-4 w-32 bg-[#060057]/10 dark:bg-white/10 rounded-md" />
+                <div className="h-4 w-20 bg-[#060057]/5 dark:bg-white/5 rounded-full" />
+              </div>
+              <div className="grid grid-cols-3 gap-2 p-2.5 bg-[#F6F8F1] dark:bg-[#0B0E17] rounded-xl border border-[#060057]/10 dark:border-white/10">
+                <div className="h-7 bg-[#060057]/5 dark:bg-white/5 rounded-md" />
+                <div className="h-7 bg-[#060057]/5 dark:bg-white/5 rounded-md" />
+                <div className="h-7 bg-[#060057]/5 dark:bg-white/5 rounded-md" />
+              </div>
+            </div>
+          ))}
         </div>
       ) : filteredHistory.length === 0 ? (
         <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">

@@ -293,11 +293,19 @@ export default function AktivitasPage() {
 
           {/* Task List */}
           {isLoading ? (
-            <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs">
-              <RefreshCw className="h-5 w-5 text-[#D74D0D] dark:text-[#FF6B2B] animate-spin mx-auto mb-2" />
-              <p className="text-xs text-[#060057]/60 dark:text-[#F6F8F1]/60 font-medium">
-                Memuat daftar tugas...
-              </p>
+            <div className="flex flex-col gap-2.5 animate-pulse">
+              {[1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-3.5 shadow-xs flex items-center justify-between gap-3"
+                >
+                  <div className="flex items-center gap-2.5 flex-1">
+                    <div className="h-5 w-5 rounded-md bg-[#060057]/10 dark:bg-white/10 shrink-0" />
+                    <div className="h-4 w-44 bg-[#060057]/10 dark:bg-white/10 rounded-md" />
+                  </div>
+                  <div className="h-5 w-16 rounded-full bg-[#060057]/5 dark:bg-white/5" />
+                </div>
+              ))}
             </div>
           ) : tasks.length === 0 ? (
             <div className="bg-white dark:bg-[#141926] border border-[#060057]/10 dark:border-white/10 rounded-2xl p-8 text-center shadow-xs flex flex-col items-center">
