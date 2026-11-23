@@ -41,7 +41,7 @@ export function OfficesManagerView({
     initialOffices[0] ? String(initialOffices[0].radius_meters) : "200"
   );
   const [workStart, setWorkStart] = useState<string>(
-    initialOffices[0]?.work_start_time?.slice(0, 5) || "08:00"
+    initialOffices[0]?.work_start_time?.slice(0, 5) || "09:00"
   );
   const [workEnd, setWorkEnd] = useState<string>(
     initialOffices[0]?.work_end_time?.slice(0, 5) || "17:00"

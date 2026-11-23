@@ -30,7 +30,7 @@ export async function getTodayAttendance(): Promise<{
     latitude: DEFAULT_OFFICE.latitude,
     longitude: DEFAULT_OFFICE.longitude,
     radius_meters: DEFAULT_OFFICE.radiusMeters,
-    work_start_time: "08:00:00",
+    work_start_time: "09:00:00",
     work_end_time: "17:00:00",
     timezone: "Asia/Jakarta",
   };
@@ -127,9 +127,9 @@ export async function clockInAction(payload: {
 
   const is_out_of_area = distance > office.radius_meters;
 
-  // 3. Compare with work_start_time (default '08:00:00')
+  // 3. Compare with work_start_time (default '09:00:00')
   const currentTimeStr = getJakartaCurrentTime();
-  const workStartTime = office.work_start_time || "08:00:00";
+  const workStartTime = office.work_start_time || "09:00:00";
   const status = currentTimeStr > workStartTime ? "LATE" : "ONTIME";
 
   // 4. Insert into attendances table

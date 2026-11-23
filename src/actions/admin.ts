@@ -431,7 +431,7 @@ export async function upsertOfficeAction(payload: {
     latitude: payload.latitude,
     longitude: payload.longitude,
     radius_meters: Math.round(payload.radius_meters),
-    work_start_time: normalizeTime(payload.work_start_time, "08:00:00"),
+    work_start_time: normalizeTime(payload.work_start_time, "09:00:00"),
     work_end_time: normalizeTime(payload.work_end_time, "17:00:00"),
     timezone: payload.timezone?.trim() || "Asia/Jakarta",
   };
